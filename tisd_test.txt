@@ -1,0 +1,21 @@
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 12:20:47
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+{'resultsid': 'a1', 'starttime': datetime.datetime(2016, 10, 6, 12, 30, 43, 373322), 'userid': 'testuser', 'analysismodel': 'POWERANALYSISDAY', 'endtime': datetime.datetime(2016, 10, 11, 12, 30, 43, 373364), 'energyhubid': '78:a5:04:ff:40:bb', 'data': [{'aipL2': 2.0188559467245377, 'rbpL1': None, 'ripL1': None, 'abp': None, 'abpL3': None, 'ripL3': None, 'aip': 5.6892835629629674, 'aipL3': 2.067999096099541, 'ripL2': None, 'ts': 1476057600.0, 'aipL1': 1.6024285201388888, 'rbp': None, 'rbpL2': None, 'rip': None, 'rbpL3': None, 'abpL1': None, 'abpL2': None}, {'aipL2': 4.4378871617939835, 'rbpL1': None, 'ripL1': None, 'abp': None, 'abpL3': None, 'ripL3': None, 'aip': 12.649332175983798, 'aipL3': 4.659314362164349, 'ripL2': None, 'ts': 1475971200.0, 'aipL1': 3.5521306520254634, 'rbp': None, 'rbpL2': None, 'rip': None, 'rbpL3': None, 'abpL1': None, 'abpL2': None}, {'aipL2': 4.508180114270833, 'rbpL1': None, 'ripL1': None, 'abp': None, 'abpL3': None, 'ripL3': None, 'aip': 12.77620113321759, 'aipL3': 4.6737835690740726, 'ripL2': None, 'ts': 1475884800.0, 'aipL1': 3.594237449872685, 'rbp': None, 'rbpL2': None, 'rip': None, 'rbpL3': None, 'abpL1': None, 'abpL2': None}, {'aipL2': 4.068207229976853, 'rbpL1': None, 'ripL1': None, 'abp': None, 'abpL3': None, 'ripL3': None, 'aip': 11.409593560127316, 'aipL3': 4.159046946886574, 'ripL2': None, 'ts': 1475798400.0, 'aipL1': 3.1823393832638884, 'rbp': None, 'rbpL2': None, 'rip': None, 'rbpL3': None, 'abpL1': None, 'abpL2': None}, {'aipL2': 3.8431609933449065, 'rbpL1': None, 'ripL1': None, 'abp': None, 'abpL3': None, 'ripL3': None, 'aip': 10.780165913622684, 'aipL3': 4.04003584261574, 'ripL2': None, 'ts': 1475712000.0, 'aipL1': 2.8969690776620367, 'rbp': None, 'rbpL2': None, 'rip': None, 'rbpL3': None, 'abpL1': None, 'abpL2': None}]}

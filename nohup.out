@@ -1,0 +1,514 @@
+Found
+{'jobstatus': 0, 'energyhubid': 'b0:d5:cc:16:df:57', 'resultsid': '84edae9fe33ba380ba5b0e3e51b5c564e76c76e8', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('57fce263d2a83918454e95dc'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-06 10:17:33
+Last timestamp in this group:
+2016-10-06 23:59:59
+84edae9fe33ba380ba5b0e3e51b5c564e76c76e8
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': '3ca53d908c7ebc60d99446a91e47bb0392e3561b', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('57fce26ed2a83918454e95dd'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+3ca53d908c7ebc60d99446a91e47bb0392e3561b
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': '5781eb120d8b01ae8f370c58ffc2f0183811715f', 'endtime': datetime.datetime(2016, 10, 10, 23, 59, 59), 'userid': '4654654', 'starttime': datetime.datetime(2016, 10, 6, 0, 0), '_id': ObjectId('57fd2567d2a83918454e95de'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 12:20:47
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+5781eb120d8b01ae8f370c58ffc2f0183811715f
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': '37b0d3e240b02deb6d569bb0941ef742f2406d58', 'endtime': datetime.datetime(2016, 10, 10, 23, 59, 59), 'userid': '4654654', 'starttime': datetime.datetime(2016, 10, 6, 0, 0), '_id': ObjectId('57fd25c6d2a83918454e95df'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 12:20:47
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+37b0d3e240b02deb6d569bb0941ef742f2406d58
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': 'b25df357d35b45188c85c6999a8de1198b7f118e', 'endtime': datetime.datetime(2016, 10, 10, 23, 59, 59), 'userid': '4654654', 'starttime': datetime.datetime(2016, 10, 6, 0, 0), '_id': ObjectId('57fd25d6d2a83918454e95e0'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 12:20:47
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+b25df357d35b45188c85c6999a8de1198b7f118e
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': 'ddd8e4fe0d4d2adab4cf378b9b782d3a440740de', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('57fdd66fd2a83918454e95e1'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+ddd8e4fe0d4d2adab4cf378b9b782d3a440740de
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': 'f530eade7b973365f3dcd387c991cd43e5e8a524', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('57fde2ebd2a83918454e95e2'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+f530eade7b973365f3dcd387c991cd43e5e8a524
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': '0a59f36e29be23f0d082d1e01b1b655c19126e99', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('57fe0d44d2a83918454e95e3'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+0a59f36e29be23f0d082d1e01b1b655c19126e99
+Found
+{'jobstatus': 0, 'energyhubid': '78:a5:04:ff:40:bb', 'resultsid': '994f748a669202a759128659114e69bd33c337ed', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('57fe1836d2a83918454e95e4'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+994f748a669202a759128659114e69bd33c337ed
+Found
+{'jobstatus': 0, 'energyhubid': 'b0:d5:cc:16:df:57', 'resultsid': 'cc582bd652d49dee40beca7cdf8e5a9ab8ac97d0', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('57fe3678d2a83918454e95e5'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-06 10:17:33
+Last timestamp in this group:
+2016-10-06 23:59:59
+cc582bd652d49dee40beca7cdf8e5a9ab8ac97d0
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': 'db29cf68032d8d197a95d36844a2160a6c292cfa', 'endtime': datetime.datetime(2016, 10, 13, 13, 22, 14, 245000), 'userid': '\tviktor.larsson@ferroamp.se\t', 'starttime': datetime.datetime(2016, 10, 10, 13, 22, 14, 245000), '_id': ObjectId('57fe38b6d2a83918454e95e6'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 13:39:39
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+db29cf68032d8d197a95d36844a2160a6c292cfa
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': '2c814d1fb773ca1d680e64c5da3f8602f13efc12', 'endtime': datetime.datetime(2016, 10, 13, 13, 22, 14, 245000), 'userid': '\tviktor.larsson@ferroamp.se\t', 'starttime': datetime.datetime(2016, 10, 7, 13, 22, 14, 245000), '_id': ObjectId('57fe398ed2a83918454e95e7'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 13:43:21
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+2c814d1fb773ca1d680e64c5da3f8602f13efc12
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': '304c8d21dacf4133c64f71cb0f81d3b731fdf689', 'endtime': datetime.datetime(2016, 10, 13, 13, 27, 2, 948000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 13, 27, 2, 948000), '_id': ObjectId('57fe39cdd2a83918454e95e8'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 13:44:17
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+304c8d21dacf4133c64f71cb0f81d3b731fdf689
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': 'fa484318a2e6d07293cba97b24ffd73263d4d55c', 'endtime': datetime.datetime(2016, 10, 13, 13, 47, 16, 902000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 13, 47, 16, 901000), '_id': ObjectId('57fe3e89d2a83918454e95e9'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:04:30
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+fa484318a2e6d07293cba97b24ffd73263d4d55c
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': '510558178ef8a8f5536ad3969b4ddd95b3dc90fb', 'endtime': datetime.datetime(2016, 10, 13, 13, 48, 25, 187000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 13, 48, 25, 187000), '_id': ObjectId('57fe3ecdd2a83918454e95ea'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:05:37
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+510558178ef8a8f5536ad3969b4ddd95b3dc90fb
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': '68df83a3b73fc18850aa0c3bc26d2aa808602c43', 'endtime': datetime.datetime(2016, 10, 13, 13, 56, 27, 188000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 13, 56, 27, 188000), '_id': ObjectId('57fe40d8d2a83918454e95eb'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:14:19
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+68df83a3b73fc18850aa0c3bc26d2aa808602c43
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': 'cee6845fe3ad0b162284102c29ad0a2300c42046', 'endtime': datetime.datetime(2016, 10, 13, 14, 1, 4, 480000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 14, 1, 4, 479000), '_id': ObjectId('57fe41cfd2a83918454e95ec'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:18:27
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+cee6845fe3ad0b162284102c29ad0a2300c42046
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': '0579e71f66811ea07b1b23ccfb833f8ec2b4e3ab', 'endtime': datetime.datetime(2016, 10, 13, 14, 4, 46, 426000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 14, 4, 46, 426000), '_id': ObjectId('57fe42a6d2a83918454e95ed'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:22:02
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+0579e71f66811ea07b1b23ccfb833f8ec2b4e3ab
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': '9bc25aed63e8674afaed9116b46b6335da520b08', 'endtime': datetime.datetime(2016, 10, 13, 14, 6, 57, 970000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 14, 6, 57, 970000), '_id': ObjectId('57fe4327d2a83918454e95ee'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:24:11
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+9bc25aed63e8674afaed9116b46b6335da520b08
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': 'a408a08f7a301c8229f3b8ac84190459a0407e91', 'endtime': datetime.datetime(2016, 10, 13, 14, 8, 47, 433000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 14, 8, 47, 433000), '_id': ObjectId('57fe4395d2a83918454e95ef'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:26:00
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+a408a08f7a301c8229f3b8ac84190459a0407e91
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': '95bda43ef0e7876a0717c4d359ddcf7652f08e23', 'endtime': datetime.datetime(2016, 10, 13, 14, 10, 2, 864000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 10, 14, 10, 2, 864000), '_id': ObjectId('57fe43e0d2a83918454e95f0'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:27:15
+First timestamp in this group:
+2016-10-11 00:00:00
+Last timestamp in this group:
+2016-10-11 23:59:59
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+95bda43ef0e7876a0717c4d359ddcf7652f08e23
+Found
+{'jobstatus': 0, 'energyhubid': '54:4a:16:c1:92:21', 'resultsid': 'cc05c02bb89ca69c922919ea1d1bbfac2ab3c1da', 'endtime': datetime.datetime(2016, 10, 13, 14, 11, 56, 791000), 'userid': '9', 'starttime': datetime.datetime(2016, 10, 4, 14, 11, 56, 791000), '_id': ObjectId('57fe4456d2a83918454e95f1'), 'analysismodel': 'POWERANALYSISDAY'}
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 23:59:59
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-12 00:00:00
+Last timestamp in this group:
+2016-10-12 14:29:29
+First timestamp in this group:Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'jobstatus': 0, 'resultsid': '522a926c03966ac537255a58dcabe112da23b941', 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), '_id': ObjectId('5804b72e15ac3b5b0baf2eda')}
+522a926c03966ac537255a58dcabe112da23b941
+Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 18, 11, 51, 56, 306000), 'jobstatus': 0, 'resultsid': '3f38002a022cb3913a64eb0c08d65c76933d24e0', 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'starttime': datetime.datetime(2016, 10, 17, 11, 51, 56, 306000), '_id': ObjectId('5804baf315ac3b5b0baf2edb')}
+3f38002a022cb3913a64eb0c08d65c76933d24e0
+Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 18, 11, 51, 56, 306000), 'jobstatus': 0, 'resultsid': 'ca36006de00e8d4da08136c654251ba5fc76fae1', 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'starttime': datetime.datetime(2016, 10, 3, 11, 51, 56, 306000), '_id': ObjectId('5804bafc15ac3b5b0baf2edc')}
+ca36006de00e8d4da08136c654251ba5fc76fae1
+Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 18, 11, 58, 45, 659000), 'jobstatus': 0, 'resultsid': '90228d5f59454874028f287f65a051d0334f3690', 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'starttime': datetime.datetime(2016, 10, 17, 11, 58, 45, 659000), '_id': ObjectId('5804bc8d15ac3b5b0baf2edd')}
+90228d5f59454874028f287f65a051d0334f3690
+Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 18, 11, 58, 45, 659000), 'jobstatus': 0, 'resultsid': '9d397dd789355d4fcff86ca7daf57ce51f8c4f6f', 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'starttime': datetime.datetime(2016, 10, 8, 11, 58, 45, 659000), '_id': ObjectId('5804bc9415ac3b5b0baf2ede')}
+9d397dd789355d4fcff86ca7daf57ce51f8c4f6f
+Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 19, 22, 23, 58, 64000), 'jobstatus': 0, 'resultsid': '0ed83b692fd8c5ec0f41639a42c0af24acfb0e9d', 'userid': '12', 'energyhubid': 'a0:f6:fd:44:ad:41', 'starttime': datetime.datetime(2016, 10, 16, 22, 23, 58, 64000), '_id': ObjectId('5806a09adc684954a6e55377')}
+0ed83b692fd8c5ec0f41639a42c0af24acfb0e9d
+Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 19, 22, 23, 58, 64000), 'jobstatus': 0, 'resultsid': '3a5da915999c951da9f550d142ebd816d0800f1e', 'userid': '12', 'energyhubid': 'a0:f6:fd:44:ad:41', 'starttime': datetime.datetime(2016, 10, 16, 22, 23, 58, 64000), '_id': ObjectId('5806a0abdc684954a6e55378')}
+3a5da915999c951da9f550d142ebd816d0800f1e
+Found
+{'analysismodel': 'DAILYPOWER', 'endtime': datetime.datetime(2016, 10, 8, 22, 23, 58, 64000), 'jobstatus': 0, 'resultsid': '0ef6b45f6426c0839d0d03f4c09642bf16ecf7ea', 'userid': '12', 'energyhubid': 'a0:f6:fd:44:ad:41', 'starttime': datetime.datetime(2016, 8, 31, 22, 23, 58, 64000), '_id': ObjectId('5806a0d3dc684954a6e55379')}
+Traceback (most recent call last):
+  File "daemon_power_analysis_day.py", line 17, in <module>
+    doc["data"]=list(hub_aggr)
+  File "/home/ubuntu/analysis_modules/power_analysis_day.py", line 205, in get_energy_counter_averages
+    first_value_64 = unsigned64int_from_words(first_value[0],first_value[1], not(first_value[2]))/3600000000
+KeyError: 0
+Found
+{'energyhubid': 'a0:f6:fd:44:ad:41', 'resultsid': '0ef6b45f6426c0839d0d03f4c09642bf16ecf7ea', '_id': ObjectId('5806a0d3dc684954a6e55379'), 'analysismodel': 'DAILYPOWER', 'userid': '12', 'starttime': datetime.datetime(2016, 8, 31, 22, 23, 58, 64000), 'jobstatus': 0, 'endtime': datetime.datetime(2016, 10, 8, 22, 23, 58, 64000)}
+Traceback (most recent call last):
+  File "daemon_power_analysis_day.py", line 17, in <module>
+    doc["data"]=list(hub_aggr)
+  File "/home/ubuntu/analysis_modules/power_analysis_day.py", line 205, in get_energy_counter_averages
+    first_value_64 = unsigned64int_from_words(first_value[0],first_value[1], not(first_value[2]))/3600000000
+KeyError: 0
+Found
+{'jobstatus': 0, 'analysismodel': 'DAILYPOWER', 'resultsid': '0ef6b45f6426c0839d0d03f4c09642bf16ecf7ea', 'starttime': datetime.datetime(2016, 8, 31, 22, 23, 58, 64000), 'energyhubid': 'a0:f6:fd:44:ad:41', '_id': ObjectId('5806a0d3dc684954a6e55379'), 'endtime': datetime.datetime(2016, 10, 8, 22, 23, 58, 64000), 'userid': '12'}
+Traceback (most recent call last):
+  File "daemon_power_analysis_day.py", line 17, in <module>
+    doc["data"]=list(hub_aggr)
+  File "/home/ubuntu/analysis_modules/power_analysis_day.py", line 205, in get_energy_counter_averages
+    first_value_64 = unsigned64int_from_words(first_value[0],first_value[1], not(first_value[2]))/3600000000
+KeyError: 0
+Found
+{'jobstatus': 0, '_id': ObjectId('5806a0d3dc684954a6e55379'), 'starttime': datetime.datetime(2016, 8, 31, 22, 23, 58, 64000), 'analysismodel': 'DAILYPOWER', 'energyhubid': 'a0:f6:fd:44:ad:41', 'resultsid': '0ef6b45f6426c0839d0d03f4c09642bf16ecf7ea', 'userid': '12', 'endtime': datetime.datetime(2016, 10, 8, 22, 23, 58, 64000)}
+Traceback (most recent call last):
+  File "daemon_power_analysis_day.py", line 17, in <module>
+    doc["data"]=list(hub_aggr)
+  File "/home/ubuntu/analysis_modules/power_analysis_day.py", line 205, in get_energy_counter_averages
+    first_value_64 = unsigned64int_from_words(first_value[0],first_value[1], not(first_value[2]))/3600000000
+KeyError: 0
+Found
+{'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '888', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5807764d43c1e468aacb1805'), 'resultsid': '2d68089ab6e9ffce82f312e5fcbedfc30f5cc01b'}
+2d68089ab6e9ffce82f312e5fcbedfc30f5cc01b
+Found
+{'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '668', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580778f243c1e468aacb1807'), 'resultsid': '2161934c15957a0a78f2bbd6ec3b300c99ee7bd8'}
+2161934c15957a0a78f2bbd6ec3b300c99ee7bd8
+Found
+{'endtime': datetime.datetime(2016, 10, 19, 23, 59, 59), 'userid': '4654654', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('58077a4243c1e468aacb1809'), 'resultsid': 'a1ff5df4735170eebebbe5b5e598da7a7ee430d9'}
+a1ff5df4735170eebebbe5b5e598da7a7ee430d9
+Found
+{'endtime': datetime.datetime(2016, 10, 20, 20, 12, 31, 294000), 'userid': '12', 'energyhubid': 'a0:f6:fd:44:ad:41', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 17, 20, 12, 31, 294000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5807d34543c1e468aacb1815'), 'resultsid': '6d581d6eaa35bc3710f74445b613f6be5f5278a9'}
+6d581d6eaa35bc3710f74445b613f6be5f5278a9
+Found
+{'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '668', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('58087e51e95c065f5b524ba2'), 'resultsid': '45ed0b7e3cdee536bd47e88cc550f47ef6abd539'}
+45ed0b7e3cdee536bd47e88cc550f47ef6abd539
+Found
+{'endtime': datetime.datetime(2016, 10, 7, 0, 0, 0, 8000), 'userid': '668', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('58088261e95c065f5b524ba8'), 'resultsid': '6fb4e8b6c7d5e8f81eac9baf238f0f701bc3c713'}
+6fb4e8b6c7d5e8f81eac9baf238f0f701bc3c713
+Found
+{'endtime': datetime.datetime(2016, 10, 7, 0, 0, 0, 8000), 'userid': '888', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809b378e95c065f5b524bb1'), 'resultsid': 'c3a0b89d12bc4ea2d9c419feaae31140c28bc119'}
+c3a0b89d12bc4ea2d9c419feaae31140c28bc119
+Found
+{'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809ba3be95c065f5b524bb2'), 'resultsid': '0a0fd4918d0551db65368f196b63d42c844bb25a'}
+0a0fd4918d0551db65368f196b63d42c844bb25a
+Found
+{'endtime': datetime.datetime(2016, 10, 22, 0, 0, 0, 8000), 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 21, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809ba64e95c065f5b524bb3'), 'resultsid': '0a308bdeb459c8971a3834f484636b2dd6cebb56'}
+0a308bdeb459c8971a3834f484636b2dd6cebb56
+Found
+{'endtime': datetime.datetime(2016, 10, 22, 0, 0, 0, 8000), 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 16, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809ba8be95c065f5b524bb4'), 'resultsid': 'f2e20175b6fa11ff9b8c4ce0033ca58c6dc5030e'}
+f2e20175b6fa11ff9b8c4ce0033ca58c6dc5030e
+Found
+{'endtime': datetime.datetime(2016, 10, 22, 0, 0, 0, 8000), 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 16, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809c074e95c065f5b524bb5'), 'resultsid': 'af4207c1772ba6c1e66ee8983074636bd1d667a1'}
+af4207c1772ba6c1e66ee8983074636bd1d667a1
+Found
+{'endtime': datetime.datetime(2016, 10, 22, 0, 0, 0, 8000), 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 16, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809c0bbe95c065f5b524bb6'), 'resultsid': '832bb1b64180c04b2cbbf7067a0bf4a05a6b3fba'}
+832bb1b64180c04b2cbbf7067a0bf4a05a6b3fba
+Found
+{'endtime': datetime.datetime(2016, 10, 7, 0, 0, 0, 8000), 'userid': '444', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809c0fee95c065f5b524bb8'), 'resultsid': '27e50715bda6286681dae57266cb2aa596162886'}
+27e50715bda6286681dae57266cb2aa596162886
+Found
+{'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '333', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('5809c159e95c065f5b524bb9'), 'resultsid': '2c652b402b6bab8e1b86bfa57b1b01f5fe5bf069'}
+2c652b402b6bab8e1b86bfa57b1b01f5fe5bf069
+Found
+{'endtime': datetime.datetime(2016, 10, 22, 11, 59, 35, 682000), 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 17, 11, 59, 35, 682000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580a0325e95c065f5b524bba'), 'resultsid': '78308ef2caeabcf2e190816b1959846b93b13369'}
+78308ef2caeabcf2e190816b1959846b93b13369
+Found
+{'endtime': datetime.datetime(2016, 10, 22, 0, 0, 0, 8000), 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 16, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580a0ca7e95c065f5b524bbb'), 'resultsid': '4850d700c61f5cde5f29c1bf2f7629bc4db904cd'}
+4850d700c61f5cde5f29c1bf2f7629bc4db904cd
+Found
+{'endtime': datetime.datetime(2016, 10, 22, 0, 0, 0, 8000), 'userid': '212', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 16, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580a13ade95c065f5b524bbc'), 'resultsid': '9eac9685242d205d6fc043d6d3dade7ec1bc73c4'}
+9eac9685242d205d6fc043d6d3dade7ec1bc73c4
+Found
+{'endtime': datetime.datetime(2016, 10, 25, 9, 14, 28, 503000), 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 22, 9, 14, 28, 503000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580dd0a0e95c065f5b524bbf'), 'resultsid': '7abbdaf2af763b62d95a05626e0d8e315e2816f8'}
+7abbdaf2af763b62d95a05626e0d8e315e2816f8
+Found
+{'endtime': datetime.datetime(2016, 10, 25, 9, 14, 28, 503000), 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 20, 9, 14, 28, 503000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580dd0c2e95c065f5b524bc0'), 'resultsid': '788d9f9c879bacca5c27cd0aed8d2e14289f2015'}
+788d9f9c879bacca5c27cd0aed8d2e14289f2015
+Found
+{'endtime': datetime.datetime(2016, 10, 26, 6, 59, 11, 108000), 'userid': '9', 'energyhubid': '54:4a:16:c1:92:21', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 24, 6, 59, 11, 108000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580f039be95c065f5b524bd3'), 'resultsid': '04c40fe3b13f21da4f1e07e968d9dadce66379a8'}
+04c40fe3b13f21da4f1e07e968d9dadce66379a8
+Found
+{'endtime': datetime.datetime(2016, 10, 14, 23, 59, 59), 'userid': '4654654', 'energyhubid': '54:4a:16:c1:92:21', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580f06c7e95c065f5b524bd7'), 'resultsid': 'fe12eb7b215531a968d150cdce2c46cbbf9e1425'}
+fe12eb7b215531a968d150cdce2c46cbbf9e1425
+Found
+{'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '888', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580f0ef6e95c065f5b524bdb'), 'resultsid': '4db836cc78d3e327df8a45e0be57585a4d8f1cad'}
+4db836cc78d3e327df8a45e0be57585a4d8f1cad
+Found
+{'endtime': datetime.datetime(2016, 10, 9, 0, 0, 0, 8000), 'userid': '888', 'energyhubid': '78:a5:04:ff:40:bb', 'jobstatus': 0, 'starttime': datetime.datetime(2016, 10, 6, 0, 0, 0, 8000), 'analysismodel': 'DAILYPOWER', '_id': ObjectId('580f1419e95c065f5b524be1'), 'resultsid': 'b21f5d004dce78d7fc8949f79121f7916511d0e3'}

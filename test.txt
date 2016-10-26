@@ -1,0 +1,29 @@
+First timestamp in this group:
+2016-10-10 00:00:00
+Last timestamp in this group:
+2016-10-10 12:20:47
+First timestamp in this group:
+2016-10-09 00:00:00
+Last timestamp in this group:
+2016-10-09 23:59:59
+First timestamp in this group:
+2016-10-08 00:00:00
+Last timestamp in this group:
+2016-10-08 23:59:59
+First timestamp in this group:
+2016-10-07 00:00:00
+Last timestamp in this group:
+2016-10-07 23:59:59
+First timestamp in this group:
+2016-10-06 00:00:00
+Last timestamp in this group:
+2016-10-06 23:59:59
+First timestamp in this group:
+2016-10-05 00:00:00
+Last timestamp in this group:
+2016-10-05 23:59:59
+First timestamp in this group:
+2016-10-04 20:38:53
+Last timestamp in this group:
+2016-10-04 23:59:59
+{'starttime': datetime.datetime(2016, 9, 10, 20, 35, 15, 881324), 'endtime': datetime.datetime(2016, 10, 10, 20, 35, 15, 881355), 'energyhubid': '78:a5:04:ff:40:bb', 'userid': 'testuser', 'resultsid': 'a1', 'analysismodel': 'POWERANALYSISDAY', 'data': [{'abpL1': None, 'rbp': None, 'rbpL3': None, 'aipL3': 2.067999096099541, 'rbpL2': None, 'abpL2': None, 'aipL2': 2.0188559467245377, 'aip': 5.6892835629629674, 'ripL1': None, 'rbpL1': None, 'ripL2': None, 'ts': datetime.datetime(2016, 10, 10, 0, 0), 'rip': None, 'ripL3': None, 'abpL3': None, 'abp': None, 'aipL1': 1.6024285201388888}, {'abpL1': None, 'rbp': None, 'rbpL3': None, 'aipL3': 4.659314362164349, 'rbpL2': None, 'abpL2': None, 'aipL2': 4.4378871617939835, 'aip': 12.649332175983798, 'ripL1': None, 'rbpL1': None, 'ripL2': None, 'ts': datetime.datetime(2016, 10, 9, 0, 0), 'rip': None, 'ripL3': None, 'abpL3': None, 'abp': None, 'aipL1': 3.5521306520254634}, {'abpL1': None, 'rbp': None, 'rbpL3': None, 'aipL3': 4.6737835690740726, 'rbpL2': None, 'abpL2': None, 'aipL2': 4.508180114270833, 'aip': 12.77620113321759, 'ripL1': None, 'rbpL1': None, 'ripL2': None, 'ts': datetime.datetime(2016, 10, 8, 0, 0), 'rip': None, 'ripL3': None, 'abpL3': None, 'abp': None, 'aipL1': 3.594237449872685}, {'abpL1': None, 'rbp': None, 'rbpL3': None, 'aipL3': 4.159046946886574, 'rbpL2': None, 'abpL2': None, 'aipL2': 4.068207229976853, 'aip': 11.409593560127316, 'ripL1': None, 'rbpL1': None, 'ripL2': None, 'ts': datetime.datetime(2016, 10, 7, 0, 0), 'rip': None, 'ripL3': None, 'abpL3': None, 'abp': None, 'aipL1': 3.1823393832638884}, {'abpL1': None, 'rbp': None, 'rbpL3': None, 'aipL3': 4.04003584261574, 'rbpL2': None, 'abpL2': None, 'aipL2': 3.8431609933449065, 'aip': 10.780165913622684, 'ripL1': None, 'rbpL1': None, 'ripL2': None, 'ts': datetime.datetime(2016, 10, 6, 0, 0), 'rip': None, 'ripL3': None, 'abpL3': None, 'abp': None, 'aipL1': 2.8969690776620367}, {'abpL1': None, 'rbp': None, 'rbpL3': None, 'aipL3': 4.104157568229167, 'rbpL2': None, 'abpL2': None, 'aipL2': 4.0175933480671295, 'aip': 11.21588300912037, 'ripL1': None, 'rbpL1': None, 'ripL2': None, 'ts': datetime.datetime(2016, 10, 5, 0, 0), 'rip': None, 'ripL3': None, 'abpL3': None, 'abp': None, 'aipL1': 3.094132092824074}, {'abpL1': None, 'rbp': None, 'rbpL3': None, 'aipL3': 0.5249297655787036, 'rbpL2': None, 'abpL2': None, 'aipL2': 0.5261445860185185, 'aip': 1.4161827365046298, 'ripL1': None, 'rbpL1': None, 'ripL2': None, 'ts': datetime.datetime(2016, 10, 4, 20, 38, 53), 'rip': None, 'ripL3': None, 'abpL3': None, 'abp': None, 'aipL1': 0.36510838490740744}]}
