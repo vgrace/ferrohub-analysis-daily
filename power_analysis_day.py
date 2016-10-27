@@ -42,7 +42,7 @@ def mdb_mark_job_done(jobdata):
 	
 def mdb_insert_poweranalysisday_result(resultdata):
     #resultdata["_id"]=None
-    local_db[analysis_config.POWERANALYSISDAILY_JOBS].insert(resultdata)
+    local_db[analysis_config.POWERANALYSISDAILY_RESULTS].insert(resultdata)
 
 def mdb_get_cursor():
     cur = local_db[analysis_config.POWERANALYSISDAILY_JOBS].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
