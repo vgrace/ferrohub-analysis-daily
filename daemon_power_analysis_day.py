@@ -4,7 +4,10 @@ import base_load
 import json
 import re, time
 import pymongo
-from datetime_utilities import *
+
+import datetime_utilities
+du = datetime_utilities
+
 pad = power_analysis_day
 base = base_load
 
@@ -15,8 +18,8 @@ while True:
             job_input = cursor.next()
             # New job found
             print("Found")
-            job_input["starttime"]=round_down_datetime(job_input["starttime"])
-            job_input["endtime"]=round_up_datetime(job_input["endtime"])
+            job_input["starttime"]=du.round_down_datetime(job_input["starttime"])
+            job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
             print(job_input)
             # Get energy counter datafrom measurement DB
             aggr_data = pad.mdb_get_energy_counter_data_grouped(job_input)
@@ -32,3 +35,10 @@ while True:
         except StopIteration:
             print("Out")
             time.sleep(2)
+
+
+
+
+
+
+            
