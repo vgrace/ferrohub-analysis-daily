@@ -6,6 +6,8 @@ from datetime import datetime
 from datetime import date
 from datetime import timedelta
 from datetime import time
+import mdb_base_load
+
 
 # xIn is the input matrix of measurement data (from base_load_test_data)
 # preFilt is a scalar, default 50 (from modal dialog)
@@ -17,6 +19,33 @@ xIn_test_random = random.rand(100, 8)
 xIn = xIn_test_random
 
 def get_base_load_values(input):
+    """
+	Load the base values for this period described in the input
+    Input:
+        {
+         "energyhubid": string, 
+         "starttime": datetime ,
+         "endtime": datetime,
+         "userid": "string,
+         "resultsid": string,
+         "analysismodel": string, # "POWERANALYSISDAY", "POWERANALYSISHOUR" 
+         "jobstatus": int # 0 = created, 1 = result ready
+         }
+	
+	Returns:
+		abp == Active 3P Base AP(active)LL(line_to_line)Load  [kW] - from Preal
+        rbp == Reactive 3P Base AQ(reactiveLL(line_to_line)Load  [VAr] - from Pimag
+        abpL1 == Active 1P Base AP(active)L1N(neutral)Load  [kW] - From PLoad[n]
+        abpL2 == Active 1P Base AP(active)L2N(neutral)Load  [kW]
+        abpL3 == Active 1P Base AP(active)L3N(neutral)Load  [kW]
+        rbpL1 == Reactive 1P Base AQ(reactive)L1N(neutral)Load [VAr] - From QLoad[n]
+        rbpL2 == Reactive 1P Base AQ(reactive)L2N(neutral)Load [VAr]
+        rbpL3 == Reactive 1P Base AQ(reactive)L3N(neutral)Load [VAr]
+    """
+    return list(mdb_base_load.mdb_get_base_load_calc(input["energyhubid"], input["starttime"], input["endtime"]))
+
+
+def get_base_load_values_mock(input):
     """
 	Load the base values for this period described in the input
     Input:
@@ -65,8 +94,6 @@ def get_base_load_values(input):
         result.append(resultitem)
         d += delta
     return sorted(result, key=lambda x: x["ts"].isoformat())
-
-
 
 def base_val(xIn, preFilt, precision):
     """
@@ -150,7 +177,27 @@ def base_val(xIn, preFilt, precision):
 
     print(xOut)
     return xOut
+
+def transform_raw_data():
+    """
+	Transforms the input from the main measurement database collection ehubdatas 
+    to the format required by the base_val() function (the xIn parameter)
 	
-    if __name__ == "__main__":
-        # execute only if run as a script
-        base_val(xIn, preFilt, precision)
+	ux - external voltage, x - phase.
+    i  - internal
+    e  - external 
+    r  - rms
+    q  - active 
+    d  - reactive 
+    all numbers represent which phase. 
+    id : mac_address. 
+    ts : timestamp 
+    lp - loadpower
+    pvp - pv -power.
+	"""
+    result = []
+    return result
+		
+if __name__ == "__main__":
+    # execute only if run as a script
+    base_val(xIn, preFilt, precision)

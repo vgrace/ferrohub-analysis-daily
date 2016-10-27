@@ -21,7 +21,7 @@ def mdb_get_energy_counter_data(device_mac, date):
     return start_value, end_value
 
 def mdb_setup_poweranalysisday_job_collection():
-    local_db.create_collection('poweranalysisday_jobs', capped= True, size= 65536, autoIndexId = False )
+    local_db.create_collection(analysis_config.POWERANALYSISDAILY_JOBS, capped= True, size= 65536, autoIndexId = False )
     input = {
     "energyhubid": "00:00:00:00:00:00",
     "starttime": datetime.now() ,
@@ -34,24 +34,20 @@ def mdb_setup_poweranalysisday_job_collection():
     mdb_insert_poweranalysisday_job(input)
 
 def mdb_insert_poweranalysisday_job(jobdata):
-    local_db["poweranalysisday_jobs"].insert(jobdata)
+    local_db[analysis_config.POWERANALYSISDAILY_JOBS].insert(jobdata)
 
 def mdb_mark_job_done(jobdata):
     print(jobdata["resultsid"])
-    local_db["poweranalysisday_jobs"].find_and_modify(query={'resultsid':jobdata["resultsid"]}, update={"$set": {'jobstatus': 1}}, upsert=False, full_response= False)
+    local_db[analysis_config.POWERANALYSISDAILY_JOBS].find_and_modify(query={'resultsid':jobdata["resultsid"]}, update={"$set": {'jobstatus': 1}}, upsert=False, full_response= False)
+	
 def mdb_insert_poweranalysisday_result(resultdata):
     #resultdata["_id"]=None
-    local_db["poweranalysisday_results"].insert(resultdata)
+    local_db[analysis_config.POWERANALYSISDAILY_JOBS].insert(resultdata)
 
 def mdb_get_cursor():
-    cur = local_db["poweranalysisday_jobs"].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
+    cur = local_db[analysis_config.POWERANALYSISDAILY_JOBS].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
     #cur = cur.hint([('$natural', 1)]) # ensure we don't use any indexes
     return cur
-
-def mdb_get_poweranalysisday_job():
-    # latest_job = db.poweranalysisday_jobs.find_one( {"$query":{}, "$orderby":{"$natural":-1}} )
-    return latest_job
-
 
 def mdb_get_last_inserted(period):
     res = list(db["power_"+period].aggregate(pipeline=
@@ -64,7 +60,7 @@ def mdb_get_last_inserted(period):
     return res
 
 def mdb_get_energy_counter_enabled_hubs():
-    res = list(db.energydata.aggregate(pipeline=
+    res = list(db[analysis_config.ENERGY_COUNTER].aggregate(pipeline=
         [
         {"$group" :{
         "_id": {"id":"$id", "fid":"$fid"}
@@ -98,7 +94,7 @@ def mdb_get_energy_counter_data_grouped(input):
         """
     starttime_as_utc = cest_as_utc(round_down_datetime(input["starttime"]))
     endtime_as_utc =  cest_as_utc(round_up_datetime(input["endtime"]))
-    res = list(db.energydata.aggregate(pipeline=
+    res = list(db[analysis_config.ENERGY_COUNTER].aggregate(pipeline=
         # Select from an cest-adjusted time to a cest-adjusted time (i.e., if starttime CEST is 2016-10-10T00:00:00, we should select from UTC 2016-10-09T22:00:00 to get the first two hours of 2016-10-10.)
         [{"$match" :{"id": input["energyhubid"] , "ts":{"$gte": starttime_as_utc, "$lte": endtime_as_utc}}},
         { "$sort": { "ts": 1} }, # order by ascending date
@@ -181,7 +177,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     energy_counter_data = {}
     ts = aggregate_values_and_base_loads["avg"]["first_ts"]
     adjusted_ts = round_down_datetime(ts) # The first value is in EHUB time (CEST) but may not be rounded down.
-    print(adjusted_ts)
+    # print(adjusted_ts)
     periodvalues["ts"]=adjusted_ts.timestamp() # This value is already adjusted to EHUB time (CEST)
     for avg_name in ["epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3","lcp1","lcp2","lcp3","lcq1","lcq2","lcq3","pve","bp","bc"]:
         first_value = aggregate_values_and_base_loads["avg"]["first_"+avg_name]
@@ -206,14 +202,23 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     # Base power may be fetched from DB elsewhere but we set them up here for now
     # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
     # print(aggregate_values_and_base_loads["base"])
-    base_loads = next(filter(lambda x: x["ts"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
-    #print(base_loads)
-    periodvalues["abp"]=base_loads["abp"]
-    periodvalues["abpL1"]=base_loads["abpL1"]
-    periodvalues["abpL2"]=base_loads["abpL2"]
-    periodvalues["abpL3"]= base_loads["abpL3"]
-    periodvalues["rbp"]=base_loads["rbp"]
-    periodvalues["rbpL1"]=base_loads["rbpL1"]
-    periodvalues["rbpL2"]=base_loads["rbpL2"]
-    periodvalues["rbpL3"]=base_loads["rbpL3"]
+    base_loads = next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
+    if base_loads != None:	
+        periodvalues["abp"]=base_loads["abp"]
+        periodvalues["abpL1"]=base_loads["abpL1"]
+        periodvalues["abpL2"]=base_loads["abpL2"]
+        periodvalues["abpL3"]= base_loads["abpL3"]
+        periodvalues["rbp"]=base_loads["rbp"]
+        periodvalues["rbpL1"]=base_loads["rbpL1"]
+        periodvalues["rbpL2"]=base_loads["rbpL2"]
+        periodvalues["rbpL3"]=base_loads["rbpL3"]
+    else:
+        periodvalues["abp"]=None
+        periodvalues["abpL1"]=None
+        periodvalues["abpL2"]=None
+        periodvalues["abpL3"]= None
+        periodvalues["rbp"]=None
+        periodvalues["rbpL1"]=None
+        periodvalues["rbpL2"]=None
+        periodvalues["rbpL3"]=None
     return periodvalues
