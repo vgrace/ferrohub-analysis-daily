@@ -5,10 +5,7 @@ import json
 import re, time
 import pymongo
 import datetime_utilities
-<<<<<<< HEAD
-=======
 du = datetime_utilities
->>>>>>> d1cb266c7f7b60f5416d6e2e9d78f06ea1522187
 pad = power_analysis_day
 base = base_load
 
@@ -36,3 +33,10 @@ while True:
         except StopIteration:
             print("Out")
             time.sleep(2)
+
+
+
+
+
+
+            
