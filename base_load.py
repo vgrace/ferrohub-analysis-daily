@@ -270,7 +270,7 @@ def transform_energy_counter(ec_data):
             result[i,8]=QLoad3	
         except KeyError:
             result[i,0]=ts.timestamp()
-		    print("transform_energy_counter() - KeyError ", ts)
+            print("transform_energy_counter() - KeyError ", ts)
         i=i+1
     return result
 
