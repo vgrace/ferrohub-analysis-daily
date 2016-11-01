@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
+import sys
 from numpy import *
-import scipy.linalg
+from  scipy.linalg import *
+from  scipy.signal import *
 from sys import exit
 from datetime import datetime
 from datetime import date
 from datetime import timedelta
 from datetime import time
 import mdb_base_load
-
+from datetime_utilities import *
+from power_analysis_day import unsigned64int_from_words
 
 # xIn is the input matrix of measurement data (from base_load_test_data)
 # preFilt is a scalar, default 50 (from modal dialog)
@@ -17,6 +20,7 @@ preFilt = 50
 precision = 50
 xIn_test_random = random.rand(100, 8)
 xIn = xIn_test_random
+isDebugMode = False
 
 def get_base_load_values(input):
     """
@@ -121,49 +125,83 @@ def base_val(xIn, preFilt, precision):
         rbpL2 == Reactive 1P Base AQ(reactive)L2N(neutral)Load [VAr]
         rbpL3 == Reactive 1P Base AQ(reactive)L3N(neutral)Load [VAr]
     """ 
+    print("#base_val(xIn",preFilt,precision,")")
+    print("xIn.shape=",xIn.shape)
+    print("xIn=",xIn)
     # xOut = zeros(1, size(xIn,2)); 
-    xOut = zeros((1,xIn.shape[1]))
+    xOut = zeros((xIn.shape[1]))
     
       # if (size(xIn,1) <= preFilt) 
             # xOut = min(xIn, [], 1);
             # return;
         # end;
-    if size(xIn.shape[0])<=preFilt:
+  
+    if xIn.shape[0]<=preFilt:
         xOut = nanmin(xIn_test_random, 0)
-        print(xOut)
-        exit()
-
+        #print("size(xIn.shape[0])<=preFilt:")
+        return xOut
+    #print("xOut=",xOut)
     # xFilt = filter(1/preFilt*ones(1,preFilt), 1, abs(xIn)); % abs(x) mapped to xIn
-    # xFilt = xFilt(2*preFilt+1:end, :); %redefine xFilt as selection from xFilt starting at 2*preFilt+1 to end, and everything in dim 2 (?)
-
+    # xFilt = xFilt(2*preFilt+1:end, :); 
+    
+    # print("1/preFilt*ones(preFilt)")	
+    # print(1/preFilt*ones(preFilt))
+    # print("x=abs(xIn)")
+    # print(abs(xIn))
     xFilt = lfilter(b=1/preFilt*ones(preFilt), a=1, x=abs(xIn))
+    #print("xFilt.shape=",xFilt.shape)
     xFilt = xFilt[2*preFilt:,:]  
-
+    #print("xFilt.shape=",xFilt.shape)
+    #print("xFilt=",xFilt)
     # minVal = round(min(xFilt, [], 1)/precision)*precision; 
+    # TypeError: type numpy.ndarray doesn't define __round__ method
+    # minVal = round(nanmin(xFilt,0)/precision)*precision
+    #print("amin(xFilt,axis=0)",amin(xFilt,axis=0))
+	
+    minVal	= array(list(map(round, amin(xFilt,axis=0)/precision)))*precision
 
-    minVal = round(nanmin(xFilt,0)/precision)*precision
+    #print("minVal",minVal)
 
     # sigVal = floor(std(xFilt, 0, 1)/precision)*precision;
     #std([1,3,4,6], ddof=1)
-    sigVal = floor(std(xFilt, ddof=1)/precision)*precision;
-
+    #print("std(xFilt, axis=0, ddof=1)",std(xFilt, axis=0, ddof=1))
+    sigVal = floor(std(xFilt, axis=0, ddof=1)/precision)*precision;
+    #print("minVal=",minVal)
+    #print("sigVal=",sigVal)
     #	for i=1:size(xFilt,2)
-    for i in range(0, xfile.shape[1]-1):
-        bins = minVal(i) + linspace(0,sigVal(i), floor(sigVal(i)/precision))  #hi,low,count => 0,sigVal(i), floor(sigVal(i)/precision 
+    #print("range(0, xFilt.shape[1]-1)=",range(0, xFilt.shape[1]-1))	
+    #print("range(0, xFilt.shape[1])",range(0, xFilt.shape[1]))
+    for i in range(0, xFilt.shape[1]-1):
+        #print("i=",i)
+        #bins = minVal[i] + linspace(0,sigVal[i], floor(sigVal[i]/precision))  #hi,low,count => 0,sigVal(i), floor(sigVal(i)/precision 
     #        bins = minVal(i)+(0:precision:sigVal(i)); #low:step:hi)
-
-        histData = histogram(xFilt[:,i],bins)
-    #		histData = histc(xFilt(:,i), bins); #digitize
-            
-        histPeakMargin = 0.01*sum(histData)
+        bins =  minVal[i] + arange(0,sigVal[i]+precision+0.0001,precision)
+        #print("arange(0,sigVal[i]+precision+0.0001,precision)=",arange(0,sigVal[i]+precision+0.0001,precision))
+        #print("xFilt[:,i]=",xFilt[:,i])
+        #print("bins=",bins)
+        histData = histogram(xFilt[:,i],bins) # Return the count of values that belong in each of the bins.
+    #	histData = histc(xFilt(:,i), bins); #digitize? -> bincount
+	# bincounts = histc(x,binranges) counts the number of values in x that are within each specified bin range. 
+	# The input, binranges, determines the endpoints for each bin. The output, bincounts, contains the number of elements from x in each bin.
+	# If x is a vector, then histc returns bincounts as a vector of histogram bin counts.
+	# If x is a matrix, then histc operates along each column of x and returns bincounts as a matrix of histogram bin counts for each column.
+	# To plot the histogram, use bar(binranges,bincounts,'histc').
+	# https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html
+        #print("histData=",histData[0])  
+        #print("histData=",histData[1])  		
+        histPeakMargin = 0.01*sum(histData[0])
     #        histPeakMargin = 0.01*sum(histData);
     #        r = find(histData > histPeakMargin, 1);
-        r = nonzero(histData > histPeakMargin)[0] # Needs better equivalent? 
-	
-        if r.all(x==0):
+        #print("nonzero(histData[0] > histPeakMargin)=",nonzero(histData[0] > histPeakMargin))
+        r = nonzero(histData[0] > histPeakMargin)[0] # Needs better equivalent? 
+        #print("r=",r)  	
+        #print("r.size=",r.size)  
+        #print("xOut=",xOut)     
+        if r.size!=0: # Correct interpretation?
+            print("bins[r]=",bins[r])
             xOut[i] = bins[r]
         else:
-            xOut[i] = nanmin(xFilt(i))
+            xOut[i] = nanmin(xFilt[i])
     		
     #        if (~isempty(r))
     #            xOut(i) = bins(r);
@@ -174,8 +212,7 @@ def base_val(xIn, preFilt, precision):
     #        xOut(i) = sign(mean(xIn(:,i)))*xOut(i);
     
         xOut[i] = sign(mean(xIn[:,i]))*xOut[i]	    
-
-    print(xOut)
+    print("xOut=",xOut)     
     return xOut
 
 def transform_raw_data():
@@ -197,7 +234,77 @@ def transform_raw_data():
 	"""
     result = []
     return result
-		
+
+
+def transform_energy_counter(ec_data):
+    """    newLogData(:, 1) = aceData.TS;
+    newLogData(:, 2) = Preal; # ==(lcp1+lcp2+lcp3) (delta mellan två ts)
+    newLogData(:, 3) = Pimag; # ==(lcq1+lcq2+lcq3) (delta mellan två ts)
+    newLogData(:, 4:6) = PLoad; # ==lcp[1-3]
+    newLogData(:, 7:9) = QLoad; # ==lcq[1-3]
+    """
+    result = zeros((len(ec_data),9))
+    last = ec_data[0]
+    i=0
+    for current_ec in ec_data[1:]:
+        # print(current_ec)
+        ts = last["ts"]
+        PLoad1 = unsigned64int_from_words(current_ec["lcp1"][0],current_ec["lcp1"][1], not(current_ec["lcp1"][2]))/3600000000  - unsigned64int_from_words(last["lcp1"][0],last["lcp1"][1], not(last["lcp1"][2]))/3600000000
+        PLoad2 = unsigned64int_from_words(current_ec["lcp2"][0],current_ec["lcp2"][1], not(current_ec["lcp2"][2]))/3600000000  - unsigned64int_from_words(last["lcp2"][0],last["lcp2"][1], not(last["lcp2"][2]))/3600000000
+        PLoad3 = unsigned64int_from_words(current_ec["lcp3"][0],current_ec["lcp3"][1], not(current_ec["lcp3"][2]))/3600000000  - unsigned64int_from_words(last["lcp3"][0],last["lcp3"][1], not(last["lcp3"][2]))/3600000000
+        QLoad1 = unsigned64int_from_words(current_ec["lcq1"][0],current_ec["lcq1"][1], not(current_ec["lcq1"][2]))/3600000000  - unsigned64int_from_words(last["lcq1"][0],last["lcq1"][1], not(last["lcq1"][2]))/3600000000
+        QLoad2 = unsigned64int_from_words(current_ec["lcq2"][0],current_ec["lcq2"][1], not(current_ec["lcq2"][2]))/3600000000  - unsigned64int_from_words(last["lcq2"][0],last["lcq2"][1], not(last["lcq2"][2]))/3600000000
+        QLoad3 = unsigned64int_from_words(current_ec["lcq3"][0],current_ec["lcq3"][1], not(current_ec["lcq3"][2]))/3600000000  - unsigned64int_from_words(last["lcq3"][0],last["lcq3"][1], not(last["lcq3"][2]))/3600000000
+        Preal = PLoad1+PLoad2+PLoad3
+        Pimag = QLoad1+QLoad2+QLoad3
+        last = current_ec
+        result[i,0]=ts.timestamp()
+        result[i,1]=Preal
+        result[i,2]=Pimag
+        result[i,3]=PLoad1
+        result[i,4]=PLoad2
+        result[i,5]=PLoad3
+        result[i,6]=QLoad1
+        result[i,7]=QLoad2
+        result[i,8]=QLoad3	
+        i=i+1
+    return result
+
+def store_base_load(deviceid ,start,base_load_array):
+    mdb_base_load.mdb_insert_base_load_calc(
+	 {
+        'starttime':start,
+        'ts':start.timestamp(),
+        'id' : deviceid,
+        'abp':base_load_array[0],
+        'rbp':base_load_array[1],
+		'abpL1':base_load_array[2],
+        'abpL2':base_load_array[3],
+        'abpL3':base_load_array[4],	
+        'rbpL1':base_load_array[5],		
+        'rbpL2':base_load_array[6],
+        'rbpL3':base_load_array[7],
+    })
+
+def run_base_load():
+    print("# run_base_load()")
+    last = mdb_base_load.mdb_get_last_inserted()
+    for device in last:
+        print("## Device ", device["id"])
+        if device["last_starttime"] < round_down_datetime(datetime.today()):
+            calc_date=device["last_starttime"]
+            stop=round_down_datetime(datetime.today()) - timedelta(days=1)
+            print("Last base load calculated ", calc_date, " calculating up to and including yesterday: ", stop)
+            while calc_date < stop:
+                energy_counters=mdb_base_load.mdb_get_base_load_energy_counter_data(device["id"], calc_date, round_up_datetime(calc_date))		
+                date_data = transform_energy_counter(list(energy_counters))
+                # No sanity check for sufficient values here, put this in base_val				
+                date_base_load = base_val(date_data[:-1,1:9], 5, 5)	
+                store_base_load(device["id"],calc_date,date_base_load)
+                calc_date = calc_date + timedelta(days=1)
+				
+
 if __name__ == "__main__":
     # execute only if run as a script
-    base_val(xIn, preFilt, precision)
+	run_base_load()
+   

@@ -16,6 +16,10 @@ local_db = local_connection[analysis_config.local_mongodb]
 def mdb_get_base_load_raw_data(device_mac, starttime, endtime):
     base_load_data = db[analysis_config.EHUBDATAS].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, {"ts": { "$gte" : starttime}}]})
     return base_load_data
+	
+def mdb_get_base_load_energy_counter_data(device_mac, starttime, endtime):
+    base_load_data = db[analysis_config.ENERGY_COUNTER].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, {"ts": { "$gte" : starttime}}]})
+    return base_load_data
 
 def mdb_get_base_load_calc(device_mac, starttime, endtime):
     base_load_data = local_db[analysis_config.BASE_LOAD_DAILY].find({"id" : device_mac, "$and" : [{"starttime": { "$lte" : endtime}}, {"starttime": { "$gte" : starttime}}]})
@@ -33,19 +37,12 @@ def mdb_get_last_inserted():
         "id": {"$last":"$id"},
 		"last_starttime": {"$last":"$starttime"}
         }}]))
+    if len(res)==0:
+        start=datetime.now() - timedelta(days=30)
+        res=[{"id":"78:a5:04:ff:40:bb","last_starttime":start,"starttime":start},{"id":"b0:d5:cc:16:df:57","last_starttime":start,"starttime":start}]
     return res	
 
 if __name__ == "__main__":
     # execute only if run as a script
-    print("Get precalculated base_load")
-    print(list(mdb_get_base_load_calc("78:a5:04:ff:40:bb", datetime(2016,10,5,0,0,0), datetime(2016,10,15,0,0,0))))
-    print("Get mdb_get_last_inserted")
-    last = mdb_get_last_inserted()
-    print(last)
-    for device in last:
-        print(device["id"], device["last_starttime"], datetime.today().date())
-        if device["last_starttime"] < round_down_datetime(datetime.today()):
-            raw = mdb_get_base_load_raw_data(device["id"], device["last_starttime"], round_down_datetime(datetime.today()))
-            print(raw.count())
+    print(mdb_get_last_inserted())
             
-		
