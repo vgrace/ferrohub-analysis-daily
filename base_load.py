@@ -199,7 +199,7 @@ def base_val(xIn, preFilt, precision):
         #print("xOut=",xOut)     
         if r.size!=0: # Correct interpretation?
             print("bins[r]=",bins[r])
-            xOut[i] = bins[r]
+            xOut[i] = mean(bins[r]) # This sometimes results in an array?
         else:
             xOut[i] = nanmin(xFilt[i])
     		
