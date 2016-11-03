@@ -254,7 +254,7 @@ def transform_energy_counter(ec_data):
     newLogData(:, 4:6) = PLoad; # ==lcp[1-3]
     newLogData(:, 7:9) = QLoad; # ==lcq[1-3]
     """
-	ec_data=fill_in_missing_energy_counters(ec_data)
+    #ec_data=fill_in_missing_energy_counters(ec_data)
     result = zeros((len(ec_data),9))
     last = ec_data[0]
     i=0
