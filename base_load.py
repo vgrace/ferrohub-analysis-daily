@@ -261,13 +261,15 @@ def transform_energy_counter(ec_data):
     for current_ec in ec_data[1:]:
         # print(current_ec)
         ts = last["ts"]
+        span  = current_ec["ts"] - ts
+        # lcp1 in mJ, convert to kW: mJ*1000/(1000*span)
         try:
-            PLoad1 = unsigned64int_from_words(current_ec["lcp1"][0],current_ec["lcp1"][1], not(current_ec["lcp1"][2]))/3600000000  - unsigned64int_from_words(last["lcp1"][0],last["lcp1"][1], not(last["lcp1"][2]))/3600000000
-            PLoad2 = unsigned64int_from_words(current_ec["lcp2"][0],current_ec["lcp2"][1], not(current_ec["lcp2"][2]))/3600000000  - unsigned64int_from_words(last["lcp2"][0],last["lcp2"][1], not(last["lcp2"][2]))/3600000000
-            PLoad3 = unsigned64int_from_words(current_ec["lcp3"][0],current_ec["lcp3"][1], not(current_ec["lcp3"][2]))/3600000000  - unsigned64int_from_words(last["lcp3"][0],last["lcp3"][1], not(last["lcp3"][2]))/3600000000
-            QLoad1 = unsigned64int_from_words(current_ec["lcq1"][0],current_ec["lcq1"][1], not(current_ec["lcq1"][2]))/3600000000  - unsigned64int_from_words(last["lcq1"][0],last["lcq1"][1], not(last["lcq1"][2]))/3600000000
-            QLoad2 = unsigned64int_from_words(current_ec["lcq2"][0],current_ec["lcq2"][1], not(current_ec["lcq2"][2]))/3600000000  - unsigned64int_from_words(last["lcq2"][0],last["lcq2"][1], not(last["lcq2"][2]))/3600000000
-            QLoad3 = unsigned64int_from_words(current_ec["lcq3"][0],current_ec["lcq3"][1], not(current_ec["lcq3"][2]))/3600000000  - unsigned64int_from_words(last["lcq3"][0],last["lcq3"][1], not(last["lcq3"][2]))/3600000000
+            PLoad1 = (unsigned64int_from_words(current_ec["lcp1"][0],current_ec["lcp1"][1], not(current_ec["lcp1"][2]))  - unsigned64int_from_words(last["lcp1"][0],last["lcp1"][1], not(last["lcp1"][2])))/span.seconds
+            PLoad2 = (unsigned64int_from_words(current_ec["lcp2"][0],current_ec["lcp2"][1], not(current_ec["lcp2"][2]))  - unsigned64int_from_words(last["lcp2"][0],last["lcp2"][1], not(last["lcp2"][2])))/span.seconds
+            PLoad3 = (unsigned64int_from_words(current_ec["lcp3"][0],current_ec["lcp3"][1], not(current_ec["lcp3"][2]))  - unsigned64int_from_words(last["lcp3"][0],last["lcp3"][1], not(last["lcp3"][2])))/span.seconds
+            QLoad1 = (unsigned64int_from_words(current_ec["lcq1"][0],current_ec["lcq1"][1], not(current_ec["lcq1"][2]))  - unsigned64int_from_words(last["lcq1"][0],last["lcq1"][1], not(last["lcq1"][2])))/span.seconds
+            QLoad2 = (unsigned64int_from_words(current_ec["lcq2"][0],current_ec["lcq2"][1], not(current_ec["lcq2"][2]))  - unsigned64int_from_words(last["lcq2"][0],last["lcq2"][1], not(last["lcq2"][2])))/span.seconds
+            QLoad3 = (unsigned64int_from_words(current_ec["lcq3"][0],current_ec["lcq3"][1], not(current_ec["lcq3"][2]))  - unsigned64int_from_words(last["lcq3"][0],last["lcq3"][1], not(last["lcq3"][2])))/span.seconds
             Preal = PLoad1+PLoad2+PLoad3
             Pimag = QLoad1+QLoad2+QLoad3
             last = current_ec

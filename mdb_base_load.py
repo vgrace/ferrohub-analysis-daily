@@ -18,8 +18,7 @@ def mdb_get_base_load_raw_data(device_mac, starttime, endtime):
     return base_load_data
 	
 def mdb_get_base_load_energy_counter_data(device_mac, starttime, endtime):
-    base_load_data = db[analysis_config.ENERGY_COUNTER].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, 
-	{"ts": { "$gte" : starttime}}], "lcp1",{"$exists",True},"lcp2",{"$exists",True},"lcp3",{"$exists",True},"lcq1",{"$exists",True},"lcq2",{"$exists",True},"lcq3",{"$exists",True}})
+    base_load_data = db[analysis_config.ENERGY_COUNTER].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, {"ts": { "$gte" : starttime}}], "lcp1":{"$exists":True},"lcp2":{"$exists":True},"lcp3":{"$exists":True},"lcq1":{"$exists":True},"lcq2":{"$exists":True},"lcq3":{"$exists":True}})
     return base_load_data
 
 def mdb_get_base_load_calc(device_mac, starttime, endtime):
