@@ -22,7 +22,7 @@ def mdb_get_base_load_energy_counter_data(device_mac, starttime, endtime):
     return base_load_data
 
 def mdb_get_base_load_calc(device_mac, starttime, endtime):
-    base_load_data = local_db[analysis_config.BASE_LOAD_DAILY].find({"id" : device_mac, "$and" : [{"starttime": { "$lte" : endtime}}, {"starttime": { "$gte" : starttime}}]})
+    base_load_data = local_db[analysis_config.BASE_LOAD_DAILY].find({"id" : device_mac, "$and" : [{"starttime": { "$lte" : endtime}}, {"starttime": { "$gte" : starttime}}]}).sort({"ts":1})
     return base_load_data
 	
 def mdb_insert_base_load_calc(base_load_for_period):

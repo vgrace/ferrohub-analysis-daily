@@ -262,29 +262,31 @@ def transform_energy_counter(ec_data):
         # print(current_ec)
         ts = last["ts"]
         span  = current_ec["ts"] - ts
-        # lcp1 in mJ, convert to kW: mJ*1000/(1000*span)
-        try:
-            PLoad1 = (unsigned64int_from_words(current_ec["lcp1"][0],current_ec["lcp1"][1], not(current_ec["lcp1"][2]))  - unsigned64int_from_words(last["lcp1"][0],last["lcp1"][1], not(last["lcp1"][2])))/span.seconds
-            PLoad2 = (unsigned64int_from_words(current_ec["lcp2"][0],current_ec["lcp2"][1], not(current_ec["lcp2"][2]))  - unsigned64int_from_words(last["lcp2"][0],last["lcp2"][1], not(last["lcp2"][2])))/span.seconds
-            PLoad3 = (unsigned64int_from_words(current_ec["lcp3"][0],current_ec["lcp3"][1], not(current_ec["lcp3"][2]))  - unsigned64int_from_words(last["lcp3"][0],last["lcp3"][1], not(last["lcp3"][2])))/span.seconds
-            QLoad1 = (unsigned64int_from_words(current_ec["lcq1"][0],current_ec["lcq1"][1], not(current_ec["lcq1"][2]))  - unsigned64int_from_words(last["lcq1"][0],last["lcq1"][1], not(last["lcq1"][2])))/span.seconds
-            QLoad2 = (unsigned64int_from_words(current_ec["lcq2"][0],current_ec["lcq2"][1], not(current_ec["lcq2"][2]))  - unsigned64int_from_words(last["lcq2"][0],last["lcq2"][1], not(last["lcq2"][2])))/span.seconds
-            QLoad3 = (unsigned64int_from_words(current_ec["lcq3"][0],current_ec["lcq3"][1], not(current_ec["lcq3"][2]))  - unsigned64int_from_words(last["lcq3"][0],last["lcq3"][1], not(last["lcq3"][2])))/span.seconds
-            Preal = PLoad1+PLoad2+PLoad3
-            Pimag = QLoad1+QLoad2+QLoad3
-            last = current_ec
-            result[i,0]=ts.timestamp()
-            result[i,1]=Preal
-            result[i,2]=Pimag
-            result[i,3]=PLoad1
-            result[i,4]=PLoad2
-            result[i,5]=PLoad3
-            result[i,6]=QLoad1
-            result[i,7]=QLoad2
-            result[i,8]=QLoad3	
-        except KeyError:
-            result[i,0]=ts.timestamp()
-            print("transform_energy_counter() - KeyError ", ts)
+        # lcp1 in mJ, convert to kW: mJ*1000/(1000*span.seconds)
+        if (span.seconds>0):
+            try:
+                PLoad1 = (unsigned64int_from_words(current_ec["lcp1"][0],current_ec["lcp1"][1], not(current_ec["lcp1"][2]))  - unsigned64int_from_words(last["lcp1"][0],last["lcp1"][1], not(last["lcp1"][2])))/span.seconds
+                print("PLoad1",PLoad1)
+                PLoad2 = (unsigned64int_from_words(current_ec["lcp2"][0],current_ec["lcp2"][1], not(current_ec["lcp2"][2]))  - unsigned64int_from_words(last["lcp2"][0],last["lcp2"][1], not(last["lcp2"][2])))/span.seconds
+                PLoad3 = (unsigned64int_from_words(current_ec["lcp3"][0],current_ec["lcp3"][1], not(current_ec["lcp3"][2]))  - unsigned64int_from_words(last["lcp3"][0],last["lcp3"][1], not(last["lcp3"][2])))/span.seconds
+                QLoad1 = (unsigned64int_from_words(current_ec["lcq1"][0],current_ec["lcq1"][1], not(current_ec["lcq1"][2]))  - unsigned64int_from_words(last["lcq1"][0],last["lcq1"][1], not(last["lcq1"][2])))/span.seconds
+                QLoad2 = (unsigned64int_from_words(current_ec["lcq2"][0],current_ec["lcq2"][1], not(current_ec["lcq2"][2]))  - unsigned64int_from_words(last["lcq2"][0],last["lcq2"][1], not(last["lcq2"][2])))/span.seconds
+                QLoad3 = (unsigned64int_from_words(current_ec["lcq3"][0],current_ec["lcq3"][1], not(current_ec["lcq3"][2]))  - unsigned64int_from_words(last["lcq3"][0],last["lcq3"][1], not(last["lcq3"][2])))/span.seconds
+                Preal = PLoad1+PLoad2+PLoad3
+                Pimag = QLoad1+QLoad2+QLoad3
+                last = current_ec
+                result[i,0]=ts.timestamp()
+                result[i,1]=Preal
+                result[i,2]=Pimag
+                result[i,3]=PLoad1
+                result[i,4]=PLoad2
+                result[i,5]=PLoad3
+                result[i,6]=QLoad1
+                result[i,7]=QLoad2
+                result[i,8]=QLoad3	
+            except KeyError:
+                print("transform_energy_counter() - KeyError ", ts)
+        result[i,0]=ts.timestamp()
         i=i+1
     return result
 
