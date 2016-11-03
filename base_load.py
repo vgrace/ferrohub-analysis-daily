@@ -315,11 +315,12 @@ def run_base_load():
             stop=round_down_datetime(datetime.today()) - timedelta(days=1)
             print("Last base load calculated ", calc_date, " calculating up to and including yesterday: ", stop)
             while calc_date < stop:
-                energy_counters=mdb_base_load.mdb_get_base_load_energy_counter_data(device["id"], calc_date, round_up_datetime(calc_date))		
-                date_data = transform_energy_counter(list(energy_counters))
-                # No sanity check for sufficient values here, put this in base_val				
-                date_base_load = base_val(date_data[:-1,1:9], 5, 5)	
-                store_base_load(device["id"],calc_date,date_base_load)
+                energy_counters=list(mdb_base_load.mdb_get_base_load_energy_counter_data(device["id"], calc_date, round_up_datetime(calc_date)))
+                if len(energy_counters)>0:				
+                    date_data = transform_energy_counter(energy_counters)
+                    # No sanity check for sufficient values here, put this in base_val				
+                    date_base_load = base_val(date_data[:-1,1:9], 5, 5)	
+                    store_base_load(device["id"],calc_date,date_base_load)
                 calc_date = calc_date + timedelta(days=1)
 				
 
