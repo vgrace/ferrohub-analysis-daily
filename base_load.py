@@ -235,9 +235,15 @@ def transform_raw_data():
     result = []
     return result
 
-def fill_in_missing_energy_counters(ec_data)
+def fill_in_missing_energy_counters(ec_data):
     for counter in ec_data:
         # Fetch the values
+        lcp1 = ec_data.get("lcp1")
+        lcp2 = ec_data.get("lcp2")
+        lcp3 = ec_data.get("lcp3")
+        lcq1 = ec_data.get("lcq1")
+        lcq2 = ec_data.get("lcq2")
+        lcq3 = ec_data.get("lcq3")
         # Save the ones that exist
         # If there are missing values, use the last one
 
