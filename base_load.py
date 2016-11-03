@@ -233,7 +233,7 @@ def transform_raw_data():
     pvp - pv -power.
 	"""
     result = []
-    return result
+    return results
 
 def fill_in_missing_energy_counters(ec_data):
     for counter in ec_data:
