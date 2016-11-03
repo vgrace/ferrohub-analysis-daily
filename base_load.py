@@ -235,6 +235,11 @@ def transform_raw_data():
     result = []
     return result
 
+def fill_in_missing_energy_counters(ec_data)
+    for counter in ec_data:
+        # Fetch the values
+        # Save the ones that exist
+        # If there are missing values, use the last one
 
 def transform_energy_counter(ec_data):
     """    newLogData(:, 1) = aceData.TS;
@@ -243,6 +248,7 @@ def transform_energy_counter(ec_data):
     newLogData(:, 4:6) = PLoad; # ==lcp[1-3]
     newLogData(:, 7:9) = QLoad; # ==lcq[1-3]
     """
+	ec_data=fill_in_missing_energy_counters(ec_data)
     result = zeros((len(ec_data),9))
     last = ec_data[0]
     i=0
@@ -275,6 +281,7 @@ def transform_energy_counter(ec_data):
     return result
 
 def store_base_load(deviceid ,start,base_load_array):
+    print("store_base_load(",deviceid,",",start)
     mdb_base_load.mdb_insert_base_load_calc(
 	 {
         'starttime':start,
