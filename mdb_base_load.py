@@ -18,11 +18,11 @@ def mdb_get_base_load_raw_data(device_mac, starttime, endtime):
     return base_load_data
 	
 def mdb_get_base_load_energy_counter_data(device_mac, starttime, endtime):
-    base_load_data = db[analysis_config.ENERGY_COUNTER].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, {"ts": { "$gte" : starttime}}], "lcp1":{"$exists":True},"lcp2":{"$exists":True},"lcp3":{"$exists":True},"lcq1":{"$exists":True},"lcq2":{"$exists":True},"lcq3":{"$exists":True}})
+    base_load_data = db[analysis_config.ENERGY_COUNTER].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, {"ts": { "$gte" : starttime}}], "lcp1":{"$exists":True},"lcp2":{"$exists":True},"lcp3":{"$exists":True},"lcq1":{"$exists":True},"lcq2":{"$exists":True},"lcq3":{"$exists":True}}).sort("ts",pymongo.ASCENDING)
     return base_load_data
 
 def mdb_get_base_load_calc(device_mac, starttime, endtime):
-    base_load_data = local_db[analysis_config.BASE_LOAD_DAILY].find({"id" : device_mac, "$and" : [{"starttime": { "$lte" : endtime}}, {"starttime": { "$gte" : starttime}}]}).sort({"ts":1})
+    base_load_data = local_db[analysis_config.BASE_LOAD_DAILY].find({"id" : device_mac, "$and" : [{"starttime": { "$lte" : endtime}}, {"starttime": { "$gte" : starttime}}]}).sort("ts",pymongo.ASCENDING)
     return base_load_data
 	
 def mdb_insert_base_load_calc(base_load_for_period):
@@ -45,4 +45,5 @@ def mdb_get_last_inserted():
 if __name__ == "__main__":
     # execute only if run as a script
     print(mdb_get_last_inserted())
+    print(list(mdb_get_base_load_calc("78:a5:04:ff:40:bb",datetime(2016,10,1,0,0,0),datetime(2016,11,1,0,0,0))))
             
