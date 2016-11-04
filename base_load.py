@@ -268,7 +268,6 @@ def transform_energy_counter(ec_data):
         if (span.seconds>0):
             try:
                 PLoad1 = (unsigned64int_from_words(current_ec["lcp1"][0],current_ec["lcp1"][1], not(current_ec["lcp1"][2]))  - unsigned64int_from_words(last["lcp1"][0],last["lcp1"][1], not(last["lcp1"][2])))/(span.seconds*1000000)
-                print("PLoad1",PLoad1)
                 PLoad2 = (unsigned64int_from_words(current_ec["lcp2"][0],current_ec["lcp2"][1], not(current_ec["lcp2"][2]))  - unsigned64int_from_words(last["lcp2"][0],last["lcp2"][1], not(last["lcp2"][2])))/(span.seconds*1000000)
                 PLoad3 = (unsigned64int_from_words(current_ec["lcp3"][0],current_ec["lcp3"][1], not(current_ec["lcp3"][2]))  - unsigned64int_from_words(last["lcp3"][0],last["lcp3"][1], not(last["lcp3"][2])))/(span.seconds*1000000)
                 QLoad1 = (unsigned64int_from_words(current_ec["lcq1"][0],current_ec["lcq1"][1], not(current_ec["lcq1"][2]))  - unsigned64int_from_words(last["lcq1"][0],last["lcq1"][1], not(last["lcq1"][2])))/(span.seconds*1000000)
@@ -290,6 +289,9 @@ def transform_energy_counter(ec_data):
                 print("transform_energy_counter() - KeyError ", ts)
         result[i,0]=ts.timestamp()
         i=i+1
+    if len(result)>0:  
+        print("[timestamp,Preal,Pimag,PLoad1,PLoad2,PLoad3,QLoad1,QLoad2,QLoad3]")	
+        print(result[0])
     return result
 
 def store_base_load(deviceid ,start,base_load_array):
@@ -323,7 +325,7 @@ def run_base_load():
                 if len(energy_counters)>0:				
                     date_data = transform_energy_counter(energy_counters)
                     # No sanity check for sufficient values here, put this in base_val				
-                    date_base_load = base_val(date_data[:-1,1:9], 5, 5)	
+                    date_base_load = base_val(date_data[:-1,1:9], 2, 2)	
                     store_base_load(device["id"],calc_date,date_base_load)
                 calc_date = calc_date + timedelta(days=1)
 				
