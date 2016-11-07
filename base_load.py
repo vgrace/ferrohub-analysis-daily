@@ -125,7 +125,7 @@ def base_val(xIn, preFilt, precision):
         rbpL2 == Reactive 1P Base AQ(reactive)L2N(neutral)Load [VAr]
         rbpL3 == Reactive 1P Base AQ(reactive)L3N(neutral)Load [VAr]
     """ 
-    print("#base_val(xIn",preFilt,precision,")")
+    print("#base_val(xIn,",preFilt,",",precision,")")
     print("xIn.shape=",xIn.shape)
     print("xIn=",xIn)
     # xOut = zeros(1, size(xIn,2)); 
@@ -137,8 +137,8 @@ def base_val(xIn, preFilt, precision):
         # end;
   
     if xIn.shape[0]<=preFilt:
-        xOut = nanmin(xIn_test_random, 0)
-        #print("size(xIn.shape[0])<=preFilt:")
+        xOut = nanmin(xIn, 0)
+        print("size(xIn.shape[0])<=preFilt: xOut=", xOut)
         return xOut
     #print("xOut=",xOut)
     # xFilt = filter(1/preFilt*ones(1,preFilt), 1, abs(xIn)); % abs(x) mapped to xIn
