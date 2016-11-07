@@ -41,7 +41,7 @@ def mdb_mark_job_done(jobdata):
     local_db[analysis_config.POWERANALYSISDAILY_JOBS].find_and_modify(query={'resultsid':jobdata["resultsid"]}, update={"$set": {'jobstatus': 1}}, upsert=False, full_response= False)
 	
 def mdb_insert_poweranalysisday_result(resultdata):
-    #resultdata["_id"]=None
+    resultdata["_id"]=None
     local_db[analysis_config.POWERANALYSISDAILY_RESULTS].insert(resultdata)
 
 def mdb_get_cursor():
