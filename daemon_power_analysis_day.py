@@ -31,12 +31,12 @@ while True:
             # Store the result in the local analysis database
             pad.mdb_insert_poweranalysisday_result(job_input)
             job_results = {
-                "energyhubid": doc["energyhubid"],
-                "starttime": doc["starttime"] ,
-                "endtime": doc["endtime"],
-                "userid": doc["userid"],
-                "resultsid":doc["resultsid"],
-                "analysismodel":doc["analysismodel"],
+                "energyhubid": job_input["energyhubid"],
+                "starttime": job_input["starttime"] ,
+                "endtime": job_input["endtime"],
+                "userid": job_input["userid"],
+                "resultsid":job_input["resultsid"],
+                "analysismodel":job_input["analysismodel"],
                 "jobstatus":1
             }
             pad.mdb_insert_poweranalysisday_jobs_results(job_results)
