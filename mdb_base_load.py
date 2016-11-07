@@ -44,6 +44,6 @@ if __name__ == "__main__":
     print(mdb_get_last_inserted())
     print("mdb_get_base_load_calc()")
     print(list(mdb_get_base_load_calc("78:a5:04:ff:40:bb",datetime(2016,10,15,0,0,0),datetime(2016,10,17,0,0,0))))
-    print("mdb_get_base_load_energy_counter_data()")
-    print(list(mdb_get_base_load_energy_counter_data("78:a5:04:ff:40:bb",datetime(2016,10,15,0,0,0),datetime(2016,10,17,0,0,0))))
+    #print("mdb_get_base_load_energy_counter_data()")
+    #print(list(mdb_get_base_load_energy_counter_data("78:a5:04:ff:40:bb",datetime(2016,10,15,0,0,0),datetime(2016,10,17,0,0,0))))
             
