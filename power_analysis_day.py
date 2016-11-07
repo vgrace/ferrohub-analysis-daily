@@ -206,8 +206,8 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
     # print(aggregate_values_and_base_loads["base"])
     base_loads = next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
-    print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
     if base_loads != None:	
+        print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
         periodvalues["abp"]=base_loads["abp"]
         periodvalues["abpL1"]=base_loads["abpL1"]
         periodvalues["abpL2"]=base_loads["abpL2"]
@@ -217,6 +217,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
         periodvalues["rbpL2"]=base_loads["rbpL2"]
         periodvalues["rbpL3"]=base_loads["rbpL3"]
     else:
+        print("aggr-base start",adjusted_ts,"- "NO BASE LOAD"])
         periodvalues["abp"]=None
         periodvalues["abpL1"]=None
         periodvalues["abpL2"]=None
