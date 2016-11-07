@@ -181,7 +181,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     energy_counter_data = {}
     ts = aggregate_values_and_base_loads["avg"]["first_ts"]
     adjusted_ts = round_down_datetime(ts) # The first value is in EHUB time (CEST) but may not be rounded down.
-    print("aggr-base start",adjusted_ts,"-",aggregate_values_and_base_loads["base"]))
+    print("aggr-base start",adjusted_ts,"-",aggregate_values_and_base_loads["base"])
     periodvalues["ts"]=adjusted_ts.timestamp() # This value is already adjusted to EHUB time (CEST)
     for avg_name in ["epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3","lcp1","lcp2","lcp3","lcq1","lcq2","lcq3","pve","bp","bc"]:
         first_value = aggregate_values_and_base_loads["avg"]["first_"+avg_name]
