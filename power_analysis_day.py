@@ -217,7 +217,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
         periodvalues["rbpL2"]=base_loads["rbpL2"]
         periodvalues["rbpL3"]=base_loads["rbpL3"]
     else:
-        print("aggr-base start",adjusted_ts,"- "NO BASE LOAD"])
+        print("aggr-base start",adjusted_ts,"- NO BASE LOAD"])
         periodvalues["abp"]=None
         periodvalues["abpL1"]=None
         periodvalues["abpL2"]=None
