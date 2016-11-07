@@ -295,7 +295,7 @@ def transform_energy_counter(ec_data):
     return result
 
 def store_base_load(deviceid ,start,base_load_array):
-    print("store_base_load(",deviceid,",",start)
+    print("store_base_load(",deviceid,",",start, " ", )
     mdb_base_load.mdb_insert_base_load_calc(
 	 {
         'starttime':start,
@@ -321,11 +321,13 @@ def run_base_load():
             stop=round_down_datetime(datetime.today()) - timedelta(days=1)
             print("Last base load calculated ", calc_date, " calculating up to and including yesterday: ", stop)
             while calc_date < stop:
+                print("date: ",calc_date)
                 energy_counters=list(mdb_base_load.mdb_get_base_load_energy_counter_data(device["id"], calc_date, round_up_datetime(calc_date)))
                 if len(energy_counters)>0:
                     date_data = transform_energy_counter(energy_counters)
-                    # No sanity check for sufficient values here, put this in base_val				
-                    date_base_load = base_val(date_data[:-1,1:9], 2, 2)	
+                    print("start date_data",date_data[0], "-",date_data[-1])
+                    # No sanity check for sufficient values here, put this in base_val
+                    date_base_load = base_val(date_data[:-1,1:9], 2, 2)
                     store_base_load(device["id"],calc_date,date_base_load)
                 calc_date = calc_date + timedelta(days=1)
 				
