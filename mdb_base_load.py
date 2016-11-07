@@ -16,7 +16,7 @@ local_db = local_connection[analysis_config.local_mongodb]
 def mdb_get_base_load_raw_data(device_mac, starttime, endtime):
     base_load_data = db[analysis_config.EHUBDATAS].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, {"ts": { "$gte" : starttime}}]})
     return base_load_data
-	
+
 def mdb_get_base_load_energy_counter_data(device_mac, starttime, endtime):
     base_load_data = db[analysis_config.ENERGY_COUNTER].find({"id" : device_mac, "$and" : [{"ts": { "$lte" : endtime}}, {"ts": { "$gte" : starttime}}], "lcp1":{"$exists":True},"lcp2":{"$exists":True},"lcp3":{"$exists":True},"lcq1":{"$exists":True},"lcq2":{"$exists":True},"lcq3":{"$exists":True}}).sort("ts",pymongo.ASCENDING)
     return base_load_data
@@ -24,7 +24,7 @@ def mdb_get_base_load_energy_counter_data(device_mac, starttime, endtime):
 def mdb_get_base_load_calc(device_mac, starttime, endtime):
     base_load_data = local_db[analysis_config.BASE_LOAD_DAILY].find({"id" : device_mac, "$and" : [{"starttime": { "$lte" : endtime}}, {"starttime": { "$gte" : starttime}}]}).sort("ts",pymongo.ASCENDING)
     return base_load_data
-	
+
 def mdb_insert_base_load_calc(base_load_for_period):
     local_db[analysis_config.BASE_LOAD_DAILY].insert(base_load_for_period)
 
