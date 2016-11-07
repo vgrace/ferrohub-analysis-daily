@@ -325,7 +325,7 @@ def run_base_load():
                 energy_counters=list(mdb_base_load.mdb_get_base_load_energy_counter_data(device["id"], calc_date, round_up_datetime(calc_date)))
                 if len(energy_counters)>0:
                     date_data = transform_energy_counter(energy_counters)
-                    print("start date_data",date_data[0], "-",date_data[-1])
+                    print("start date_data",datetime.fromtimestamp(date_data[0][0]), "-",datetime.fromtimestamp(date_data[-1][0]))
                     # No sanity check for sufficient values here, put this in base_val
                     date_base_load = base_val(date_data[:-1,1:9], 2, 2)
                     store_base_load(device["id"],calc_date,date_base_load)
