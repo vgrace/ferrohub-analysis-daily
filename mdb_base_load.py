@@ -1,13 +1,9 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 import analysis_config
 import pymongo
 from pymongo import CursorType
-# from datetime import datetime
-# from datetime import date
-# from datetime import timedelta
-# from datetime import time
 from datetime_utilities import *
-from bson.son import SON # As python dictionaries don’t maintain order you should use SON or collections.OrderedDict where explicit ordering is required eg “$sort”:
+from bson.son import SON 
 connection = pymongo.MongoClient(analysis_config.main_mongodb_uri)
 db = connection[analysis_config.main_mongodb]
 local_connection = pymongo.MongoClient(analysis_config.local_mongodb_uri)
