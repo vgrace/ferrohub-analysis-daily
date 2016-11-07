@@ -30,6 +30,16 @@ while True:
             job_input["data"]=list(hub_aggr)
             # Store the result in the local analysis database
             pad.mdb_insert_poweranalysisday_result(job_input)
+           job_results = {
+                "energyhubid": doc["energyhubid"],
+                "starttime": doc["starttime"] ,
+                "endtime": doc["endtime"],
+                "userid": doc["userid"],
+                "resultsid":doc["resultsid"],
+                "analysismodel":doc["analysismodel"],
+                "jobstatus":1
+            }
+            pah.mdb_insert_poweranalysisday_jobs_results(job_results)
             # Mark the job done
             pad.mdb_mark_job_done(job_input)
         except StopIteration:

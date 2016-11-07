@@ -33,6 +33,10 @@ def mdb_setup_poweranalysisday_job_collection():
     }
     mdb_insert_poweranalysisday_job(input)
 
+def mdb_insert_poweranalysisday_jobs_results(jobdata):
+    local_db[analysis_config.POWERANALYIS_DAILY_JOBS_RESULTS].insert(jobdata)
+
+
 def mdb_insert_poweranalysisday_job(jobdata):
     local_db[analysis_config.POWERANALYSISDAILY_JOBS].insert(jobdata)
 
