@@ -80,7 +80,7 @@ def get_base_load_values_mock(input):
         trendPeriod = 3600
     # mdb_get_base_load_values(energyhubid, starttime, endtime, trendperiod) # Get pre-calulated base load values
     # calculate_base_values(trendPeriod/analysisModel) # Run base load function on raw values between starttime and endtime grouped by trendPeriod
-    d = input["starttime"] # Needs to be cleaned up to even day/hour - refactor this to common function
+    d = round_down_datetime(input["starttime"]) # Needs to be cleaned up to even day/hour - refactor this to common function
     delta = timedelta(days=1)
     if (input["analysismodel"] == "POWERANALYSISHOUR"):
         delta = timedelta(hour=1)
