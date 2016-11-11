@@ -9,10 +9,25 @@ from datetime import date
 from datetime import timedelta
 from datetime import time
 import mdb_base_load
+import cdb_base_load
 from datetime_utilities import *
 from power_analysis_day import unsigned64int_from_words
 
-# xIn is the input matrix of measurement data (from base_load_test_data)
+#		xIn:
+#			Input matrix, where each column corresponds to a signal
+#       preFilt:
+#           Filter window on data before finding minimum point (to filter
+#           out transient min pts)
+#		precision:
+#			base_Val is quantized by this value
+#       (Optional) '-debug':
+#           Plot the data with base-value indicated. Hold execution.
+#
+# 	Output:	
+#		xOut:
+#			Row vector, where each value corresponds to the mean-extrema 
+#			for each column on xIn
+# xIn is the input matrix of measurement data
 # preFilt is a scalar, default 50 (from modal dialog)
 # precision is a scalar, default 50 (from modal dialog)
 
@@ -144,7 +159,7 @@ def base_val(xIn, preFilt, precision):
     # xFilt = filter(1/preFilt*ones(1,preFilt), 1, abs(xIn)); % abs(x) mapped to xIn
     # xFilt = xFilt(2*preFilt+1:end, :); 
     
-    # print("1/preFilt*ones(preFilt)")	
+    # print("1/preFilt*ones(preFilt)")
     # print(1/preFilt*ones(preFilt))
     # print("x=abs(xIn)")
     # print(abs(xIn))
@@ -158,7 +173,7 @@ def base_val(xIn, preFilt, precision):
     # minVal = round(nanmin(xFilt,0)/precision)*precision
     #print("amin(xFilt,axis=0)",amin(xFilt,axis=0))
 	
-    minVal	= array(list(map(round, amin(xFilt,axis=0)/precision)))*precision
+    minVal = array(list(map(round, amin(xFilt,axis=0)/precision)))*precision
 
     #print("minVal",minVal)
 
@@ -284,14 +299,14 @@ def transform_energy_counter(ec_data):
                 result[i,5]=PLoad3
                 result[i,6]=QLoad1
                 result[i,7]=QLoad2
-                result[i,8]=QLoad3	
+                result[i,8]=QLoad3
             except KeyError:
                 print("transform_energy_counter() - KeyError ", ts)
         result[i,0]=ts.timestamp()
         i=i+1
-    if len(result)>0:  
-        print("[timestamp,Preal,Pimag,PLoad1,PLoad2,PLoad3,QLoad1,QLoad2,QLoad3]")	
-        print(result[0])
+    # if len(result)>0:  
+        # print("[timestamp,Preal,Pimag,PLoad1,PLoad2,PLoad3,QLoad1,QLoad2,QLoad3]")	
+        # print(result[0])
     return result
 
 def store_base_load(deviceid ,start,base_load_array):
@@ -305,8 +320,8 @@ def store_base_load(deviceid ,start,base_load_array):
         'rbp':base_load_array[1],
 		'abpL1':base_load_array[2],
         'abpL2':base_load_array[3],
-        'abpL3':base_load_array[4],	
-        'rbpL1':base_load_array[5],		
+        'abpL3':base_load_array[4],
+        'rbpL1':base_load_array[5],
         'rbpL2':base_load_array[6],
         'rbpL3':base_load_array[7],
     })
@@ -320,6 +335,7 @@ def run_base_load():
             calc_date=round_down_datetime(device["last_starttime"])
             stop=round_down_datetime(datetime.today()) - timedelta(days=1)
             print("Last base load calculated ", calc_date, " calculating up to and including yesterday: ", stop)
+            calc_date=calc_date + timedelta(days=1) 
             while calc_date < stop:
                 print("date: ",calc_date)
                 energy_counters=list(mdb_base_load.mdb_get_base_load_energy_counter_data(device["id"], calc_date, round_up_datetime(calc_date)))
@@ -327,10 +343,11 @@ def run_base_load():
                     date_data = transform_energy_counter(energy_counters)
                     print("start date_data",datetime.fromtimestamp(date_data[0][0]), "-",datetime.fromtimestamp(date_data[-2][0]))
                     # No sanity check for sufficient values here, put this in base_val
-                    date_base_load = base_val(date_data[:-1,1:9], 2, 2)
+                    parameters = cdb_base_load.get_base_load_config(device["id"])
+                    date_base_load = base_val(date_data[:-1,1:9], parameters[2], parameters[3])
                     store_base_load(device["id"],calc_date,date_base_load)
                 calc_date = calc_date + timedelta(days=1)
-				
+
 
 if __name__ == "__main__":
     # execute only if run as a script
