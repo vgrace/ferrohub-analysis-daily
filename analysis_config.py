@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-main_mongodb_uri = "mongodb://CNET:CnET_mongo_1_!@172.31.26.143:27017/ehubdata?authSource=ehubdata"
+main_mongodb_uri = "mongodb://CNET:CnET_mongo_1_!@172.31.28.117:27017/ehubdata?authSource=ehubdata"
 #main_mongodb_uri = "mongodb://127.0.0.1:27017"
 main_mongodb = "ehubdata"
 local_mongodb_uri = "mongodb://127.0.0.1:27017"
@@ -7,7 +7,7 @@ local_mongodb = "analytics"
 #main_config_db="127.0.0.1"
 #config_db_user="mysqluser"
 #config_db_password="hemligt"
-main_config_db="172.31.26.143"
+main_config_db="172.31.28.117"
 config_db_user="CNET"
 config_db_password="CnET_MYSQL_1?_!"
 
