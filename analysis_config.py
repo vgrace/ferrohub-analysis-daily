@@ -7,7 +7,7 @@ local_mongodb = "analytics"
 #main_config_db="127.0.0.1"
 #config_db_user="mysqluser"
 #config_db_password="hemligt"
-main_config_db="172.31.26.143:3306"
+main_config_db="172.31.26.143"
 config_db_user="CNET"
 config_db_password="CnET_MYSQL_1?_!"
 
