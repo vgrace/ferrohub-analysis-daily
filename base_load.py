@@ -32,7 +32,7 @@ from power_analysis_day import unsigned64int_from_words
 # precision is a scalar, default 50 (from modal dialog)
 
 preFilt = 50
-precision = 50
+precision = 50/1000 # This method calculates on kW
 xIn_test_random = random.rand(100, 8)
 xIn = xIn_test_random
 isDebugMode = False
@@ -343,8 +343,9 @@ def run_base_load():
                     date_data = transform_energy_counter(energy_counters)
                     print("start date_data",datetime.fromtimestamp(date_data[0][0]), "-",datetime.fromtimestamp(date_data[-2][0]))
                     # No sanity check for sufficient values here, put this in base_val
-                    parameters = cdb_base_load.get_base_load_config(device["id"])
-                    date_base_load = base_val(date_data[:-1,1:9], parameters[2], parameters[3])
+                    #parameters = cdb_base_load.get_base_load_config(device["id"])
+                    #date_base_load = base_val(date_data[:-1,1:9], parameters[2], parameters[3])
+                    date_base_load = base_val(date_data[:-1,1:9], 50, 50/1000)
                     store_base_load(device["id"],calc_date,date_base_load)
                 calc_date = calc_date + timedelta(days=1)
 
