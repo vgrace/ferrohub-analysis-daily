@@ -2,17 +2,24 @@
 import analysis_config
 import pymongo
 from pymongo import CursorType
-# from datetime import datetime
+from datetime import datetime
 # from datetime import date
 # from datetime import timedelta
 # from datetime import time
 from datetime_utilities import *
+## New imports
+import collections
+import time
+import math
 from bson.son import SON # As python dictionaries don’t maintain order you should use SON or collections.OrderedDict where explicit ordering is required eg “$sort”:
 
 connection = pymongo.MongoClient(analysis_config.main_mongodb_uri)
 db = connection[analysis_config.main_mongodb]
 local_connection = pymongo.MongoClient(analysis_config.local_mongodb_uri)
 local_db = local_connection[analysis_config.local_mongodb]
+## New
+timezone_offset_ms = int(math.fabs(time.timezone * 1000))
+result_object = collections.namedtuple('Result', ['index', 'res'])
 
 def mdb_get_energy_counter_data(device_mac, date):
     end_date =  date + timedelta(days=1)
@@ -21,7 +28,7 @@ def mdb_get_energy_counter_data(device_mac, date):
     return start_value, end_value
 
 def mdb_setup_poweranalysisday_job_collection():
-    local_db.create_collection('poweranalysisday_jobs', capped= True, size= 65536, autoIndexId = False )
+    local_db.create_collection(analysis_config.POWERANALYSISDAILY_JOBS, capped= True, size= 65536, autoIndexId = False )
     input = {
     "energyhubid": "00:00:00:00:00:00",
     "starttime": datetime.now() ,
@@ -33,25 +40,25 @@ def mdb_setup_poweranalysisday_job_collection():
     }
     mdb_insert_poweranalysisday_job(input)
 
+def mdb_insert_poweranalysisday_jobs_results(jobdata):
+    local_db[analysis_config.POWERANALYIS_DAILY_JOBS_RESULTS].insert(jobdata)
+
+
 def mdb_insert_poweranalysisday_job(jobdata):
-    local_db["poweranalysisday_jobs"].insert(jobdata)
+    local_db[analysis_config.POWERANALYSISDAILY_JOBS].insert(jobdata)
 
 def mdb_mark_job_done(jobdata):
     print(jobdata["resultsid"])
-    local_db["poweranalysisday_jobs"].find_and_modify(query={'resultsid':jobdata["resultsid"]}, update={"$set": {'jobstatus': 1}}, upsert=False, full_response= False)
+    local_db[analysis_config.POWERANALYSISDAILY_JOBS].find_and_modify(query={'resultsid':jobdata["resultsid"]}, update={"$set": {'jobstatus': 1}}, upsert=False, full_response= False)
+    
 def mdb_insert_poweranalysisday_result(resultdata):
     #resultdata["_id"]=None
-    local_db["poweranalysisday_results"].insert(resultdata)
+    local_db[analysis_config.POWERANALYSISDAILY_RESULTS].insert(resultdata)
 
 def mdb_get_cursor():
-    cur = local_db["poweranalysisday_jobs"].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
+    cur = local_db[analysis_config.POWERANALYSISDAILY_JOBS].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
     #cur = cur.hint([('$natural', 1)]) # ensure we don't use any indexes
     return cur
-
-def mdb_get_poweranalysisday_job():
-    # latest_job = db.poweranalysisday_jobs.find_one( {"$query":{}, "$orderby":{"$natural":-1}} )
-    return latest_job
-
 
 def mdb_get_last_inserted(period):
     res = list(db["power_"+period].aggregate(pipeline=
@@ -64,7 +71,7 @@ def mdb_get_last_inserted(period):
     return res
 
 def mdb_get_energy_counter_enabled_hubs():
-    res = list(db.energydata.aggregate(pipeline=
+    res = list(db[analysis_config.ENERGY_COUNTER].aggregate(pipeline=
         [
         {"$group" :{
         "_id": {"id":"$id", "fid":"$fid"}
@@ -74,12 +81,159 @@ def mdb_get_energy_counter_enabled_hubs():
 def mdb_insert_power_aggregates(power_aggregate_list):
     db["testar_aggr"].insert_many(power_aggregate_list)
 
+## NEW METHODS
+def mdb_get_energy_counter_data_new(input):
+    starttime_as_utc = cest_as_utc(round_down_datetime(input["starttime"])) - timedelta(days=1) + timedelta(milliseconds=timezone_offset_ms) 
+    endtime_as_utc =  cest_as_utc(round_up_datetime(input["endtime"])) + timedelta(milliseconds=timezone_offset_ms) 
+    #print(starttime_as_utc)
+    
+    delta = endtime_as_utc - starttime_as_utc
+    number_of_days = delta.days + 1
+
+    a = endtime_as_utc  - timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1) 
+    b = starttime_as_utc   - timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1)
+
+    index = 0
+    index2 = 0
+
+    resultat = []
+
+    print("From: " + (b + timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S") + " To:" + a.strftime("%Y-%m-%d %H:%M:%S"))
+
+    while a > b:
+        toDate = b + timedelta(days=1)
+        
+        # check which in which order to put in array;
+        index2 = index2 + 1
+        #toDateDb = toDate - timedelta(seconds=1)
+        
+        test = mdb_cursorEnergyBars(index, input["energyhubid"], b, toDate)#(toDate - timedelta(seconds=1))
+        #resultat.append(test.res[0])
+        resultat.insert(test.index, test.res[0])
+        print(test.index)
+        #resultat[test.index] = test.res[0]
+        if index2 == (number_of_days): 
+            #print("break it!")
+            break
+        else:
+            #callback(null, resultat)
+            index = index + 1;
+            b = toDate
+        
+    print(number_of_days)
+    return resultat
+
+def mdb_cursorEnergyBars(index, id, fromd, tooo):
+    print("Get data from: " + fromd.strftime("%Y-%m-%d %H:%M:%S")  + " to: " + tooo.strftime("%Y-%m-%d %H:%M:%S") )
+    res = list(db.energydata.find({"id": id, "ts":{"$gte": fromd, "$lte": tooo}}).sort([("ts", -1)]).limit(1))
+    ro = result_object(index, res)
+    return ro
+
+def get_energy_counter_aggregate_new(last_list, base_load_values):
+    """Calculates  the average and base values for fetched energy counters aggregate (first_last_list)."""
+    # All this iterating over lists should be replaced with numpy array broadcast(slicing)
+    periodvalues = {}
+    map_args = []
+    
+    #print(last_list[0]["ts"])
+    #print("--------------------")
+    #print(last_list[1]["ts"])
+
+    #previous_day_vals = last_list[0]
+    #day_vals = last_list[1]
+    #map_args.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
+
+    for index in range(len(last_list) - 1):
+        previous_day_vals = last_list[index]
+        day_vals = last_list[index + 1]
+        map_args.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
+
+    #print("In get_energy_counter_aggregate_new")
+    ##for last in last_list:
+        ##map_args.append({"avg":last, "base":base_load_values})
+        ##print(map_args)
+
+    #return map(get_energy_counter_averages_new, map_args)
+    return map_args
+
+def get_energy_counter_averages_new(previous_day_vals, day_vals):
+
+    """Calculate the averages and return outdata (not trivial to do in db query)
+        Energy = day - previous day / total seconds between current and previous
+
+        Define "last time at day" and check if there is a value for that time, if there is not check the first value for the next day
+    """
+    data_day = {}
+    energy_counter_data = {}
+    ts = day_vals["ts"]
+    adjusted_ts = round_down_datetime(ts)
+    data_day["ts"] = adjusted_ts.timestamp()
+
+    for avg_name in ["epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3","lcp1","lcp2","lcp3","lcq1","lcq2","lcq3"]:#,"pve","bp","bc"
+        
+        if (day_vals[avg_name] != None and previous_day_vals[avg_name] != None):
+            # energy conunter values are in mJ, convert them to kWh
+            day_value = unsigned64int_from_words(day_vals[avg_name][0], day_vals[avg_name][1], not(day_vals[avg_name][2])) / 3600000000
+            prev_day_value = unsigned64int_from_words(previous_day_vals[avg_name][0], previous_day_vals[avg_name][1], not(previous_day_vals[avg_name][2])) / 3600000000
+            energy_counter_data[avg_name]=(day_value-prev_day_value)/24
+            print(adjusted_ts)
+            print(avg_name)
+            print(previous_day_vals["_id"])
+            #print(previous_day_vals[avg_name])
+            #print(prev_day_value)
+            print("--------####--------")
+            print(day_vals["_id"])
+            #print(day_vals[avg_name])
+            #print(day_value)
+            print("----------------")
+        else:
+            energy_counter_data[avg_name]=0
+
+    # Set up return values (in kW)
+    data_day["aipL1"] = energy_counter_data["lcp1"]
+    data_day["aipL2"] = energy_counter_data["lcp2"]
+    data_day["aipL3"] = energy_counter_data["lcp3"]
+    data_day["aip"] = data_day["aipL1"] + data_day["aipL2"] + data_day["aipL3"]
+    # Reactive power values are currently not present in energy counter data
+    data_day["rip"]=None
+    data_day["ripL1"]=None
+    data_day["ripL2"]=None
+    data_day["ripL3"]=None
+
+    # Base power may be fetched from DB elsewhere but we set them up here for now
+    # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
+    # print(aggregate_values_and_base_loads["base"])
+    base_loads = None #next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
+    if base_loads != None:  
+        ## TODO!
+        print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
+        data_day["abp"]=base_loads["abp"]
+        data_day["abpL1"]=base_loads["abpL1"]
+        data_day["abpL2"]=base_loads["abpL2"]
+        data_day["abpL3"]= base_loads["abpL3"]
+        data_day["rbp"]=base_loads["rbp"]
+        data_day["rbpL1"]=base_loads["rbpL1"]
+        data_day["rbpL2"]=base_loads["rbpL2"]
+        data_day["rbpL3"]=base_loads["rbpL3"]
+    else:
+        print("aggr-base start",adjusted_ts,"- NO BASE LOAD")
+        data_day["abp"]=None
+        data_day["abpL1"]=None
+        data_day["abpL2"]=None
+        data_day["abpL3"]= None
+        data_day["rbp"]=None
+        data_day["rbpL1"]=None
+        data_day["rbpL2"]=None
+        data_day["rbpL3"]=None
+
+    return data_day
+
 def mdb_get_energy_counter_data_grouped(input):
     """
         Fetches energy counter data for an ehub between two dates, returning first and last values for each day.
         If necessary, $project + $subtract + $divide could be used to calculate the averages in MDB.
         Another variation that does not require sorting is to use $max, $min instead of $last, $first
-		
+        
         Input:
         {
          "energyhubid": string, 
@@ -90,15 +244,15 @@ def mdb_get_energy_counter_data_grouped(input):
          "analysismodel": string, # "POWERANALYSISDAY", "POWERANALYSISHOUR" 
          "jobstatus": int # 0 = created, 1 = result ready
          }
-		 
-		 The output has 
-		 "first_ts"
-		 "last_ts"
-		 adjusted to EHUB time (CEST).
+         
+         The output has 
+         "first_ts"
+         "last_ts"
+         adjusted to EHUB time (CEST).
         """
     starttime_as_utc = cest_as_utc(round_down_datetime(input["starttime"]))
     endtime_as_utc =  cest_as_utc(round_up_datetime(input["endtime"]))
-    res = list(db.energydata.aggregate(pipeline=
+    res = list(db[analysis_config.ENERGY_COUNTER].aggregate(pipeline=
         # Select from an cest-adjusted time to a cest-adjusted time (i.e., if starttime CEST is 2016-10-10T00:00:00, we should select from UTC 2016-10-09T22:00:00 to get the first two hours of 2016-10-10.)
         [{"$match" :{"id": input["energyhubid"] , "ts":{"$gte": starttime_as_utc, "$lte": endtime_as_utc}}},
         { "$sort": { "ts": 1} }, # order by ascending date
@@ -181,7 +335,6 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     energy_counter_data = {}
     ts = aggregate_values_and_base_loads["avg"]["first_ts"]
     adjusted_ts = round_down_datetime(ts) # The first value is in EHUB time (CEST) but may not be rounded down.
-    print(adjusted_ts)
     periodvalues["ts"]=adjusted_ts.timestamp() # This value is already adjusted to EHUB time (CEST)
     for avg_name in ["epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3","lcp1","lcp2","lcp3","lcq1","lcq2","lcq3","pve","bp","bc"]:
         first_value = aggregate_values_and_base_loads["avg"]["first_"+avg_name]
@@ -206,14 +359,25 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     # Base power may be fetched from DB elsewhere but we set them up here for now
     # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
     # print(aggregate_values_and_base_loads["base"])
-    base_loads = next(filter(lambda x: x["ts"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
-    #print(base_loads)
-    periodvalues["abp"]=base_loads["abp"]
-    periodvalues["abpL1"]=base_loads["abpL1"]
-    periodvalues["abpL2"]=base_loads["abpL2"]
-    periodvalues["abpL3"]= base_loads["abpL3"]
-    periodvalues["rbp"]=base_loads["rbp"]
-    periodvalues["rbpL1"]=base_loads["rbpL1"]
-    periodvalues["rbpL2"]=base_loads["rbpL2"]
-    periodvalues["rbpL3"]=base_loads["rbpL3"]
+    base_loads = next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
+    if base_loads != None:  
+        print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
+        periodvalues["abp"]=base_loads["abp"]
+        periodvalues["abpL1"]=base_loads["abpL1"]
+        periodvalues["abpL2"]=base_loads["abpL2"]
+        periodvalues["abpL3"]= base_loads["abpL3"]
+        periodvalues["rbp"]=base_loads["rbp"]
+        periodvalues["rbpL1"]=base_loads["rbpL1"]
+        periodvalues["rbpL2"]=base_loads["rbpL2"]
+        periodvalues["rbpL3"]=base_loads["rbpL3"]
+    else:
+        print("aggr-base start",adjusted_ts,"- NO BASE LOAD")
+        periodvalues["abp"]=None
+        periodvalues["abpL1"]=None
+        periodvalues["abpL2"]=None
+        periodvalues["abpL3"]= None
+        periodvalues["rbp"]=None
+        periodvalues["rbpL1"]=None
+        periodvalues["rbpL2"]=None
+        periodvalues["rbpL3"]=None
     return periodvalues
