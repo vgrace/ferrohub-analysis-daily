@@ -25,7 +25,7 @@ def main():
     "resultsid":"a1",
     "analysismodel":"POWERANALYSISDAY",
     }
-    #print("\nRun the  aggregation for the input\n")
+    print("\nRun the  aggregation for the input\n")
     #print(input)
     input["starttime"]=round_down_datetime(input["starttime"])
     input["endtime"]=round_up_datetime(input["endtime"])
