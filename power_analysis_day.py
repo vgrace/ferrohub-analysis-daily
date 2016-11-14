@@ -108,17 +108,21 @@ def mdb_get_energy_counter_data_new(input):
         #toDateDb = toDate - timedelta(seconds=1)
         
         test = mdb_cursorEnergyBars(index, input["energyhubid"], b, toDate)#(toDate - timedelta(seconds=1))
-        #resultat.append(test.res[0])
-        resultat.insert(test.index, test.res[0])
-        print(test.index)
-        #resultat[test.index] = test.res[0]
-        if index2 == (number_of_days): 
-            #print("break it!")
-            break
-        else:
-            #callback(null, resultat)
-            index = index + 1;
-            b = toDate
+        
+        if(len(test.res) > 0):
+            #resultat.append(test.res[0])
+            resultat.insert(test.index, test.res[0])
+            #print(test.index)
+            #resultat[test.index] = test.res[0]
+            if index2 == (number_of_days): 
+                #print("break it!")
+                break
+            else:
+                #callback(null, resultat)
+                index = index + 1;
+                b = toDate
+        else: 
+            print("No data was found")
         
     print(number_of_days)
     return resultat
