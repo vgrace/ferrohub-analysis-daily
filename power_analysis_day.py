@@ -138,7 +138,7 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
     """Calculates  the average and base values for fetched energy counters aggregate (first_last_list)."""
     # All this iterating over lists should be replaced with numpy array broadcast(slicing)
     periodvalues = {}
-    map_args = []
+    aggr_res = []
     
     #print(last_list[0]["ts"])
     #print("--------------------")
@@ -147,11 +147,19 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
     #previous_day_vals = last_list[0]
     #day_vals = last_list[1]
     #map_args.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
+"""
+    map_args = []
+    for first_last in first_last_list:
+        map_args.append({"avg":first_last, "base":base_load_values})
+    return map(get_energy_counter_averages, map_args)
+"""
+
 
     for index in range(len(last_list) - 1):
         previous_day_vals = last_list[index]
         day_vals = last_list[index + 1]
-        map_args.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
+
+        aggr_res.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
 
     #print("In get_energy_counter_aggregate_new")
     ##for last in last_list:
@@ -159,7 +167,7 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
         ##print(map_args)
 
     #return map(get_energy_counter_averages_new, map_args)
-    return map_args
+    return aggr_res
 
 def get_energy_counter_averages_new(previous_day_vals, day_vals):
 
@@ -181,16 +189,7 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals):
             day_value = unsigned64int_from_words(day_vals[avg_name][0], day_vals[avg_name][1], not(day_vals[avg_name][2])) / 3600000000
             prev_day_value = unsigned64int_from_words(previous_day_vals[avg_name][0], previous_day_vals[avg_name][1], not(previous_day_vals[avg_name][2])) / 3600000000
             energy_counter_data[avg_name]=(day_value-prev_day_value)/24
-            print(adjusted_ts)
-            print(avg_name)
-            print(previous_day_vals["_id"])
-            #print(previous_day_vals[avg_name])
-            #print(prev_day_value)
-            print("--------####--------")
-            print(day_vals["_id"])
-            #print(day_vals[avg_name])
-            #print(day_value)
-            print("----------------")
+            
         else:
             energy_counter_data[avg_name]=0
 
