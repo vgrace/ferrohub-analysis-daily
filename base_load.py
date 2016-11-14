@@ -13,20 +13,20 @@ import cdb_base_load
 from datetime_utilities import *
 from power_analysis_day import unsigned64int_from_words
 
-#		xIn:
-#			Input matrix, where each column corresponds to a signal
+#       xIn:
+#           Input matrix, where each column corresponds to a signal
 #       preFilt:
 #           Filter window on data before finding minimum point (to filter
 #           out transient min pts)
-#		precision:
-#			base_Val is quantized by this value
+#       precision:
+#           base_Val is quantized by this value
 #       (Optional) '-debug':
 #           Plot the data with base-value indicated. Hold execution.
 #
-# 	Output:	
-#		xOut:
-#			Row vector, where each value corresponds to the mean-extrema 
-#			for each column on xIn
+#   Output: 
+#       xOut:
+#           Row vector, where each value corresponds to the mean-extrema 
+#           for each column on xIn
 # xIn is the input matrix of measurement data
 # preFilt is a scalar, default 50 (from modal dialog)
 # precision is a scalar, default 50 (from modal dialog)
@@ -39,7 +39,7 @@ isDebugMode = False
 
 def get_base_load_values(input):
     """
-	Load the base values for this period described in the input
+    Load the base values for this period described in the input
     Input:
         {
          "energyhubid": string, 
@@ -50,9 +50,9 @@ def get_base_load_values(input):
          "analysismodel": string, # "POWERANALYSISDAY", "POWERANALYSISHOUR" 
          "jobstatus": int # 0 = created, 1 = result ready
          }
-	
-	Returns:
-		abp == Active 3P Base AP(active)LL(line_to_line)Load  [kW] - from Preal
+    
+    Returns:
+        abp == Active 3P Base AP(active)LL(line_to_line)Load  [kW] - from Preal
         rbp == Reactive 3P Base AQ(reactiveLL(line_to_line)Load  [VAr] - from Pimag
         abpL1 == Active 1P Base AP(active)L1N(neutral)Load  [kW] - From PLoad[n]
         abpL2 == Active 1P Base AP(active)L2N(neutral)Load  [kW]
@@ -66,7 +66,7 @@ def get_base_load_values(input):
 
 def get_base_load_values_mock(input):
     """
-	Load the base values for this period described in the input
+    Load the base values for this period described in the input
     Input:
         {
          "energyhubid": string, 
@@ -77,9 +77,9 @@ def get_base_load_values_mock(input):
          "analysismodel": string, # "POWERANALYSISDAY", "POWERANALYSISHOUR" 
          "jobstatus": int # 0 = created, 1 = result ready
          }
-	
-	Returns:
-		abp == Active 3P Base AP(active)LL(line_to_line)Load  [kW] - from Preal
+    
+    Returns:
+        abp == Active 3P Base AP(active)LL(line_to_line)Load  [kW] - from Preal
         rbp == Reactive 3P Base AQ(reactiveLL(line_to_line)Load  [VAr] - from Pimag
         abpL1 == Active 1P Base AP(active)L1N(neutral)Load  [kW] - From PLoad[n]
         abpL2 == Active 1P Base AP(active)L2N(neutral)Load  [kW]
@@ -129,9 +129,9 @@ def base_val(xIn, preFilt, precision):
     Select INDEX = [2:9];        % {Single phase/3-phase active/reactive power}
     
     calculate the base values for the period.
-	
-	Returns: 
-		abp == Active 3P Base AP(active)LL(line_to_line)Load  [kW] - from Preal
+    
+    Returns: 
+        abp == Active 3P Base AP(active)LL(line_to_line)Load  [kW] - from Preal
         rbp == Reactive 3P Base AQ(reactiveLL(line_to_line)Load  [VAr] - from Pimag
         abpL1 == Active 1P Base AP(active)L1N(neutral)Load  [kW] - From PLoad[n]
         abpL2 == Active 1P Base AP(active)L2N(neutral)Load  [kW]
@@ -172,7 +172,7 @@ def base_val(xIn, preFilt, precision):
     # TypeError: type numpy.ndarray doesn't define __round__ method
     # minVal = round(nanmin(xFilt,0)/precision)*precision
     #print("amin(xFilt,axis=0)",amin(xFilt,axis=0))
-	
+    
     minVal = array(list(map(round, amin(xFilt,axis=0)/precision)))*precision
 
     #print("minVal",minVal)
@@ -183,8 +183,8 @@ def base_val(xIn, preFilt, precision):
     sigVal = floor(std(xFilt, axis=0, ddof=1)/precision)*precision;
     #print("minVal=",minVal)
     #print("sigVal=",sigVal)
-    #	for i=1:size(xFilt,2)
-    #print("range(0, xFilt.shape[1]-1)=",range(0, xFilt.shape[1]-1))	
+    #   for i=1:size(xFilt,2)
+    #print("range(0, xFilt.shape[1]-1)=",range(0, xFilt.shape[1]-1))    
     #print("range(0, xFilt.shape[1])",range(0, xFilt.shape[1]))
     for i in range(0, xFilt.shape[1]-1):
         #print("i=",i)
@@ -195,21 +195,21 @@ def base_val(xIn, preFilt, precision):
         #print("xFilt[:,i]=",xFilt[:,i])
         #print("bins=",bins)
         histData = histogram(xFilt[:,i],bins) # Return the count of values that belong in each of the bins.
-    #	histData = histc(xFilt(:,i), bins); #digitize? -> bincount
-	# bincounts = histc(x,binranges) counts the number of values in x that are within each specified bin range. 
-	# The input, binranges, determines the endpoints for each bin. The output, bincounts, contains the number of elements from x in each bin.
-	# If x is a vector, then histc returns bincounts as a vector of histogram bin counts.
-	# If x is a matrix, then histc operates along each column of x and returns bincounts as a matrix of histogram bin counts for each column.
-	# To plot the histogram, use bar(binranges,bincounts,'histc').
-	# https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html
+    #   histData = histc(xFilt(:,i), bins); #digitize? -> bincount
+    # bincounts = histc(x,binranges) counts the number of values in x that are within each specified bin range. 
+    # The input, binranges, determines the endpoints for each bin. The output, bincounts, contains the number of elements from x in each bin.
+    # If x is a vector, then histc returns bincounts as a vector of histogram bin counts.
+    # If x is a matrix, then histc operates along each column of x and returns bincounts as a matrix of histogram bin counts for each column.
+    # To plot the histogram, use bar(binranges,bincounts,'histc').
+    # https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html
         #print("histData=",histData[0])  
-        #print("histData=",histData[1])  		
+        #print("histData=",histData[1])         
         histPeakMargin = 0.01*sum(histData[0])
     #        histPeakMargin = 0.01*sum(histData);
     #        r = find(histData > histPeakMargin, 1);
         #print("nonzero(histData[0] > histPeakMargin)=",nonzero(histData[0] > histPeakMargin))
         r = nonzero(histData[0] > histPeakMargin)[0] # Needs better equivalent? 
-        #print("r=",r)  	
+        #print("r=",r)      
         #print("r.size=",r.size)  
         #print("xOut=",xOut)     
         if r.size!=0: # Correct interpretation?
@@ -217,7 +217,7 @@ def base_val(xIn, preFilt, precision):
             xOut[i] = mean(bins[r]) # This sometimes results in an array?
         else:
             xOut[i] = nanmin(xFilt[i])
-    		
+            
     #        if (~isempty(r))
     #            xOut(i) = bins(r);
     #        else
@@ -226,16 +226,16 @@ def base_val(xIn, preFilt, precision):
             
     #        xOut(i) = sign(mean(xIn(:,i)))*xOut(i);
     
-        xOut[i] = sign(mean(xIn[:,i]))*xOut[i]	    
+        xOut[i] = sign(mean(xIn[:,i]))*xOut[i]      
     print("xOut=",xOut)     
     return xOut
 
 def transform_raw_data():
     """
-	Transforms the input from the main measurement database collection ehubdatas 
+    Transforms the input from the main measurement database collection ehubdatas 
     to the format required by the base_val() function (the xIn parameter)
-	
-	ux - external voltage, x - phase.
+    
+    ux - external voltage, x - phase.
     i  - internal
     e  - external 
     r  - rms
@@ -246,7 +246,7 @@ def transform_raw_data():
     ts : timestamp 
     lp - loadpower
     pvp - pv -power.
-	"""
+    """
     result = []
     return results
 
@@ -305,20 +305,20 @@ def transform_energy_counter(ec_data):
         result[i,0]=ts.timestamp()
         i=i+1
     # if len(result)>0:  
-        # print("[timestamp,Preal,Pimag,PLoad1,PLoad2,PLoad3,QLoad1,QLoad2,QLoad3]")	
+        # print("[timestamp,Preal,Pimag,PLoad1,PLoad2,PLoad3,QLoad1,QLoad2,QLoad3]")    
         # print(result[0])
     return result
 
 def store_base_load(deviceid ,start,base_load_array):
     print("store_base_load(",deviceid,",",start, " ", )
     mdb_base_load.mdb_insert_base_load_calc(
-	 {
+     {
         'starttime':start,
         'ts':start.timestamp(),
         'id' : deviceid,
         'abp':base_load_array[0],
         'rbp':base_load_array[1],
-		'abpL1':base_load_array[2],
+        'abpL1':base_load_array[2],
         'abpL2':base_load_array[3],
         'abpL3':base_load_array[4],
         'rbpL1':base_load_array[5],
@@ -352,5 +352,4 @@ def run_base_load():
 
 if __name__ == "__main__":
     # execute only if run as a script
-	run_base_load()
-   
+    run_base_load()

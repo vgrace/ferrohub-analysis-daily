@@ -45,10 +45,3 @@ while True:
         except StopIteration:
             print("Out")
             time.sleep(2)
-
-
-
-
-
-
-            

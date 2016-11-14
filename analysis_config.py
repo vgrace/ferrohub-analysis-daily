@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+"""
+main_mongodb_uri = "mongodb://localhost:27017"
+main_mongodb = "test"
+local_mongodb_uri = "mongodb://localhost:27017"
+local_mongodb = "analytics"
+"""
+
+
 main_mongodb_uri = "mongodb://CNET:CnET_mongo_1_!@172.31.28.117:27017/ehubdata?authSource=ehubdata"
 #main_mongodb_uri = "mongodb://127.0.0.1:27017"
 main_mongodb = "ehubdata"
@@ -18,3 +26,4 @@ POWERANALYSISDAILY_JOBS="poweranalysisday_jobs"
 POWERANALYSISDAILY_RESULTS="poweranalysisday_results"
 ENERGY_COUNTER="energydata"
 POWERANALYIS_DAILY_JOBS_RESULTS="poweranalysisday_jobs_results"
+
