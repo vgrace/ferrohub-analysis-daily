@@ -102,11 +102,8 @@ def mdb_get_energy_counter_data_new(input):
 
     while a > b:
         toDate = b + timedelta(days=1)
-        
         # check which in which order to put in array;
         index2 = index2 + 1
-        #toDateDb = toDate - timedelta(seconds=1)
-        
         test = mdb_cursorEnergyBars(index, input["energyhubid"], b, toDate)#(toDate - timedelta(seconds=1))
         
         if(len(test.res) > 0):
