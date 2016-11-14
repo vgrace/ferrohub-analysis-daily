@@ -362,7 +362,6 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     base_loads = next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
 
     if base_loads != None:  
->>>>>>> 0ff565fb02664999fced791e1ab36db819a26422
         print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
         periodvalues["abp"]=base_loads["abp"]
         periodvalues["abpL1"]=base_loads["abpL1"]
