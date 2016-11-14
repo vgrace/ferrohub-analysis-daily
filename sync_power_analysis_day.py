@@ -38,7 +38,7 @@ def main():
     # Fetch the base load values
     base_values = base.get_base_load_values(input)
     print("\get_base_load_values(input)\n")
-    print(base_values)
+    print(list(base_values))
     # Calculate the averages
     hub_aggr = pad.get_energy_counter_aggregate(aggr_data, base_values)
     print("\get_base_load_values(input)\n")
