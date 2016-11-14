@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import power_analysis_day
+import mdb_base_load
 import base_load
 import json
 from datetime import datetime
@@ -35,14 +36,15 @@ def main():
     aggr_data = pad.mdb_get_energy_counter_data_grouped(input)
     print("\mdb_get_energy_counter_data_grouped(input)\n")
     print(aggr_data)
+    print("\mdb_get_base_load_calc(input["energyhubid"], input["starttime"], input["endtime"])\n")
+    print(list(mdb_base_load.mdb_get_base_load_calc(input["energyhubid"], input["starttime"], input["endtime"])))
     # Fetch the base load values
-    base_values = base.get_base_load_values(input)
-    print("\get_base_load_values(input)\n")
+    print("\base.get_base_load_values(job_input)\n")
+    base_values = base.get_base_load_values(input)# Calculate the averages
     print(list(base_values))
-    # Calculate the averages
     hub_aggr = pad.get_energy_counter_aggregate(aggr_data, base_values)
-    print("\get_base_load_values(input)\n")
-    print(hub_aggr)
+    print("\get_energy_counter_aggregate(aggr_data, base_values)\n")
+    print(list(hub_aggr))
     input["data"]=list(hub_aggr)
     #print(input)
     # Store the result in the local analysis database
