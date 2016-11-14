@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 import analysis_config
 import pymongo
 from pymongo import CursorType

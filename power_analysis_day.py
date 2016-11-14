@@ -50,7 +50,7 @@ def mdb_insert_poweranalysisday_job(jobdata):
 def mdb_mark_job_done(jobdata):
     print(jobdata["resultsid"])
     local_db[analysis_config.POWERANALYSISDAILY_JOBS].find_and_modify(query={'resultsid':jobdata["resultsid"]}, update={"$set": {'jobstatus': 1}}, upsert=False, full_response= False)
-    
+
 def mdb_insert_poweranalysisday_result(resultdata):
     #resultdata["_id"]=None
     local_db[analysis_config.POWERANALYSISDAILY_RESULTS].insert(resultdata)
@@ -360,7 +360,9 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
     # print(aggregate_values_and_base_loads["base"])
     base_loads = next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
+
     if base_loads != None:  
+>>>>>>> 0ff565fb02664999fced791e1ab36db819a26422
         print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
         periodvalues["abp"]=base_loads["abp"]
         periodvalues["abpL1"]=base_loads["abpL1"]

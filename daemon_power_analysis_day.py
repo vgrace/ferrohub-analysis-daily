@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 import power_analysis_day
-#import base_load
+import base_load
 import json
 import re, time
 import pymongo
+
 import datetime_utilities
 du = datetime_utilities
+
 pad = power_analysis_day
-#base = base_load
+base = base_load
 
 while True:
     cursor = pad.mdb_get_cursor()
@@ -22,17 +24,12 @@ while True:
             # Get energy counter datafrom measurement DB
             aggr_data = pad.mdb_get_energy_counter_data_grouped(job_input)
             # Fetch the base load values
-            base_values = [] #base.get_base_load_values(job_input)
+            base_values = base.get_base_load_values(job_input)
             # Calculate the averages
             hub_aggr = pad.get_energy_counter_aggregate(aggr_data, base_values)
-            print("------------------------------")
-            print(list(hub_aggr))
-            ##job_input["data"]=list(hub_aggr)
+            job_input["data"]=list(hub_aggr)
             # Store the result in the local analysis database
-            ##pad.mdb_insert_poweranalysisday_result(job_input)
-            # Mark the job done
-            ##pad.mdb_mark_job_done(job_input)
-            # add jobs results
+            pad.mdb_insert_poweranalysisday_result(job_input)
             job_results = {
                 "energyhubid": job_input["energyhubid"],
                 "starttime": job_input["starttime"] ,
@@ -42,14 +39,9 @@ while True:
                 "analysismodel":job_input["analysismodel"],
                 "jobstatus":1
             }
-            ##pad.mdb_insert_poweranalysisday_jobs_results(job_results)
+            pad.mdb_insert_poweranalysisday_jobs_results(job_results)
+            # Mark the job done
+            pad.mdb_mark_job_done(job_input)
         except StopIteration:
             print("Out")
             time.sleep(2)
-
-
-
-
-
-
-            
