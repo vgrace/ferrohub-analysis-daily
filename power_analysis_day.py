@@ -153,10 +153,21 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
 
 
     for index in range(len(last_list) - 1):
+        previous_day_ts = last_list[index]["ts"]
+        previous_day_adjusted_ts = round_down_datetime(previous_day_ts)
+        
+        day_ts = last_list[index + 1]["ts"]
+        day_adjusted_ts = round_down_datetime(day_ts)
+        ## Last vals
         previous_day_vals = last_list[index]
         day_vals = last_list[index + 1]
-
-        aggr_res.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
+        ## Base vals
+        previous_day_base = next(filter(lambda x: x["lasttime"]==(previous_day_adjusted_ts - timedelta(seconds=1)), base_load_values), None) ##Don't use starttime once base load is retrieved with new method
+        day_base = next(filter(lambda x: x["lasttime"]==(day_adjusted_ts - timedelta(seconds=1)), base_load_values), None)
+        print(previous_day_base)
+        print("-------")
+        print(day_base)
+        aggr_res.append(get_energy_counter_averages_new(previous_day_vals, day_vals, day_base)); 
 
     #print("In get_energy_counter_aggregate_new")
     ##for last in last_list:
@@ -166,7 +177,7 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
     #return map(get_energy_counter_averages_new, map_args)
     return aggr_res
 
-def get_energy_counter_averages_new(previous_day_vals, day_vals):
+def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
 
     """Calculate the averages and return outdata (not trivial to do in db query)
         Energy = day - previous day / total seconds between current and previous
@@ -204,18 +215,18 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals):
     # Base power may be fetched from DB elsewhere but we set them up here for now
     # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
     # print(aggregate_values_and_base_loads["base"])
-    base_loads = None #next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
-    if base_loads != None:  
+    ##base_loads = None #next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
+    if day_base != None:  
         ## TODO!
-        print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
-        data_day["abp"]=base_loads["abp"]
-        data_day["abpL1"]=base_loads["abpL1"]
-        data_day["abpL2"]=base_loads["abpL2"]
-        data_day["abpL3"]= base_loads["abpL3"]
-        data_day["rbp"]=base_loads["rbp"]
-        data_day["rbpL1"]=base_loads["rbpL1"]
-        data_day["rbpL2"]=base_loads["rbpL2"]
-        data_day["rbpL3"]=base_loads["rbpL3"]
+        print("aggr-base start",adjusted_ts,"-",day_base["starttime"])
+        data_day["abp"]=day_base["abp"]
+        data_day["abpL1"]=day_base["abpL1"]
+        data_day["abpL2"]=day_base["abpL2"]
+        data_day["abpL3"]= day_base["abpL3"]
+        data_day["rbp"]=day_base["rbp"]
+        data_day["rbpL1"]=day_base["rbpL1"]
+        data_day["rbpL2"]=day_base["rbpL2"]
+        data_day["rbpL3"]=day_base["rbpL3"]
     else:
         print("aggr-base start",adjusted_ts,"- NO BASE LOAD")
         data_day["abp"]=None
