@@ -123,6 +123,7 @@ def mdb_get_energy_counter_data_new(input):
                 b = toDate
         else: 
             print("No data was found")
+            break
         
     print(number_of_days)
     return resultat
