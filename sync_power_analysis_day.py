@@ -19,7 +19,7 @@ def main():
  
     start_date = datetime.now() - timedelta(days=30)
     input = {
-    "energyhubid": "78:a5:04:ff:40:bb", # fe-ace-28 Örebrobostäder Granrisvägen     78:a5:04:ff:40:bb
+    "energyhubid": "78:a5:04:ff:40:bb", #  fe-ace-28 Örebrobostäder Granrisvägen     78:a5:04:ff:40:bb
     "starttime": datetime(2016,11,7,0,0,0),
     "endtime": datetime(2016,11,10,0,0,0),
     "userid": "testuser",
