@@ -83,15 +83,15 @@ def mdb_insert_power_aggregates(power_aggregate_list):
 
 ## NEW METHODS
 def mdb_get_energy_counter_data_new(input):
-    starttime_as_utc = cest_as_utc(round_down_datetime(input["starttime"])) - timedelta(days=1) + timedelta(milliseconds=timezone_offset_ms) 
-    endtime_as_utc =  cest_as_utc(round_up_datetime(input["endtime"])) + timedelta(milliseconds=timezone_offset_ms) 
+    starttime_as_utc = cest_as_utc(round_down_datetime(input["starttime"])) - timedelta(days=1)
+    endtime_as_utc =  cest_as_utc(round_up_datetime(input["endtime"]))
     #print(starttime_as_utc)
     
     delta = endtime_as_utc - starttime_as_utc
     number_of_days = delta.days + 1
 
-    a = endtime_as_utc  - timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1) 
-    b = starttime_as_utc   - timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1)
+    a = endtime_as_utc  #- timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1) 
+    b = starttime_as_utc   #- timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1)
 
     index = 0
     index2 = 0
@@ -138,18 +138,18 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
     aggr_res = []
     
     #print(last_list[0]["ts"])
-    #print("--------------------")
+    print(len(base_load_values))
     #print(last_list[1]["ts"])
 
     #previous_day_vals = last_list[0]
     #day_vals = last_list[1]
     #map_args.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
-"""
-    map_args = []
-    for first_last in first_last_list:
-        map_args.append({"avg":first_last, "base":base_load_values})
-    return map(get_energy_counter_averages, map_args)
-"""
+    """
+        map_args = []
+        for first_last in first_last_list:
+            map_args.append({"avg":first_last, "base":base_load_values})
+        return map(get_energy_counter_averages, map_args)
+    """
 
 
     for index in range(len(last_list) - 1):
@@ -162,11 +162,8 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
         previous_day_vals = last_list[index]
         day_vals = last_list[index + 1]
         ## Base vals
-        previous_day_base = next(filter(lambda x: x["lasttime"]==(previous_day_adjusted_ts - timedelta(seconds=1)), base_load_values), None) ##Don't use starttime once base load is retrieved with new method
-        day_base = next(filter(lambda x: x["lasttime"]==(day_adjusted_ts - timedelta(seconds=1)), base_load_values), None)
-        print(previous_day_base)
-        print("-------")
-        print(day_base)
+        previous_day_base = next(filter(lambda x: x["starttime"]==previous_day_adjusted_ts, base_load_values), None)
+        day_base = next(filter(lambda x: x["starttime"]==day_adjusted_ts, base_load_values), None)
         aggr_res.append(get_energy_counter_averages_new(previous_day_vals, day_vals, day_base)); 
 
     #print("In get_energy_counter_aggregate_new")
@@ -197,7 +194,6 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
             day_value = unsigned64int_from_words(day_vals[avg_name][0], day_vals[avg_name][1], not(day_vals[avg_name][2])) / 3600000000
             prev_day_value = unsigned64int_from_words(previous_day_vals[avg_name][0], previous_day_vals[avg_name][1], not(previous_day_vals[avg_name][2])) / 3600000000
             energy_counter_data[avg_name]=(day_value-prev_day_value)/24
-            
         else:
             energy_counter_data[avg_name]=0
 
@@ -215,9 +211,9 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
     # Base power may be fetched from DB elsewhere but we set them up here for now
     # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
     # print(aggregate_values_and_base_loads["base"])
-    ##base_loads = None #next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
+
+    #base_loads = None #next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
     if day_base != None:  
-        ## TODO!
         print("aggr-base start",adjusted_ts,"-",day_base["starttime"])
         data_day["abp"]=day_base["abp"]
         data_day["abpL1"]=day_base["abpL1"]
