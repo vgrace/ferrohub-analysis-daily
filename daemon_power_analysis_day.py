@@ -22,11 +22,11 @@ while True:
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
             print(job_input)
             # Get energy counter datafrom measurement DB
-            aggr_data = pad.mdb_get_energy_counter_data_new(job_input) #pad.mdb_get_energy_counter_data_grouped(job_input)
+            aggr_data = pad.mdb_get_energy_counter_data_new(job_input) # pad.mdb_get_energy_counter_data_grouped(job_input)
             # Fetch the base load values
             base_values = base.get_base_load_values(job_input)
             # Calculate the averages
-            hub_aggr = pad.get_energy_counter_aggregate_new(aggr_data, base_values) #pad.get_energy_counter_aggregate(aggr_data, base_values)
+            hub_aggr = pad.get_energy_counter_aggregate_new(aggr_data, base_values) # pad.get_energy_counter_aggregate(aggr_data, base_values)
             job_input["data"]=list(hub_aggr)
             # Store the result in the local analysis database
             pad.mdb_insert_poweranalysisday_result(job_input)
