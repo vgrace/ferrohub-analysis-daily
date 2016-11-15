@@ -162,11 +162,9 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
     ts = day_vals["ts"]
     adjusted_ts = round_down_datetime(ts)
     data_day["ts"] = adjusted_ts.timestamp()
-    print(previous_day_vals)
-    print("--------")
-    print(day_vals)
-    for avg_name in ["lcp1","lcp2","lcp3"]:#,"pve","bp","bc","lcq1","lcq2","lcq3", "epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3",   
-        
+
+    for avg_name in ['epq1','epq2','epq3','ecq1','ecq2','ecq3','ipq1','ipq2','ipq3','icq1','icq2','icq3','lcp1','lcp2','lcp3','lcq1','lcq2','lcq3','pve','bp','bc']:#,"pve","bp","bc","lcq1","lcq2","lcq3", "epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3",   
+        print(avg_name)
         if (day_vals[avg_name] != None and previous_day_vals[avg_name] != None):
             # energy conunter values are in mJ, convert them to kWh
             day_value = unsigned64int_from_words(day_vals[avg_name][0], day_vals[avg_name][1], not(day_vals[avg_name][2])) / 3600000000
@@ -176,19 +174,9 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
             energy_counter_data[avg_name]=0
 
     # Set up return values (in kW)
-    if (energy_counter_data["lcp1"] != None):
-        data_day["aipL1"] = energy_counter_data["lcp1"]
-    else:
-        data_day["aipL1"] = 0
-    if (energy_counter_data["lcp2"] != None):
-        data_day["aipL2"] = energy_counter_data["lcp2"]
-    else:
-        data_day["aipL2"] = 0
-    if (energy_counter_data["lcp2"] != None):
-        data_day["aipL3"] = energy_counter_data["lcp3"]
-    else:
-        data_day["aipL3"] = 0
-
+    data_day["aipL1"] = energy_counter_data["lcp1"]
+    data_day["aipL2"] = energy_counter_data["lcp2"]
+    data_day["aipL3"] = energy_counter_data["lcp3"]
     data_day["aip"] = data_day["aipL1"] + data_day["aipL2"] + data_day["aipL3"]
     # Reactive power values are currently not present in energy counter data
     data_day["rip"]=None
