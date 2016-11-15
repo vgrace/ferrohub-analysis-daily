@@ -33,7 +33,7 @@ def main():
     print("\nGet aggregate for the input\n")
     print(input)
     # Get energy counter datafrom measurement DB
-    aggr_data = pad.mdb_get_energy_counter_data_grouped(input)
+    aggr_data = pad.mdb_get_energy_counter_data_new(input)
     print("\mdb_get_energy_counter_data_grouped(input)\n")
     print(aggr_data)
     print("\mdb_get_base_load_calc(input[energyhubid], input[starttime], input[endtime])\n")
@@ -42,7 +42,7 @@ def main():
     print("\base.get_base_load_values(job_input)\n")
     base_values = base.get_base_load_values(input)# Calculate the averages
     print(list(base_values))
-    hub_aggr = pad.get_energy_counter_aggregate(aggr_data, base_values)
+    hub_aggr = pad.get_energy_counter_aggregate_new(aggr_data, base_values)
     print("\get_energy_counter_aggregate(aggr_data, base_values)\n")
     print(list(hub_aggr))
     input["data"]=list(hub_aggr)
