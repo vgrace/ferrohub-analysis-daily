@@ -174,9 +174,19 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
             energy_counter_data[avg_name]=0
 
     # Set up return values (in kW)
-    data_day["aipL1"] = energy_counter_data["lcp1"]
-    data_day["aipL2"] = energy_counter_data["lcp2"]
-    data_day["aipL3"] = energy_counter_data["lcp3"]
+    if (energy_counter_data["lcp1"] != None):
+        data_day["aipL1"] = energy_counter_data["lcp1"]
+    else:
+        data_day["aipL1"] = 0
+    if (energy_counter_data["lcp2"] != None):
+        data_day["aipL2"] = energy_counter_data["lcp2"]
+    else:
+        data_day["aipL2"] = 0
+    if (energy_counter_data["lcp2"] != None):
+        data_day["aipL3"] = energy_counter_data["lcp3"]
+    else:
+        data_day["aipL3"] = 0
+        
     data_day["aip"] = data_day["aipL1"] + data_day["aipL2"] + data_day["aipL3"]
     # Reactive power values are currently not present in energy counter data
     data_day["rip"]=None
