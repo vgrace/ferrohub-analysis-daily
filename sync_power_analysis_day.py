@@ -36,7 +36,7 @@ def main():
     aggr_data = pad.mdb_get_energy_counter_data_grouped(input)
     print("\mdb_get_energy_counter_data_grouped(input)\n")
     print(aggr_data)
-    print("\mdb_get_base_load_calc(input["energyhubid"], input["starttime"], input["endtime"])\n")
+    print("\mdb_get_base_load_calc(input[energyhubid], input[starttime], input[endtime])\n")
     print(list(mdb_base_load.mdb_get_base_load_calc(input["energyhubid"], input["starttime"], input["endtime"])))
     # Fetch the base load values
     print("\base.get_base_load_values(job_input)\n")
