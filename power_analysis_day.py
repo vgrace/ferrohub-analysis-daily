@@ -163,7 +163,7 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
     adjusted_ts = round_down_datetime(ts)
     data_day["ts"] = adjusted_ts.timestamp()
 
-    for avg_name in ["epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3","lcp1","lcp2","lcp3","lcq1","lcq2","lcq3"]:#,"pve","bp","bc"
+    for avg_name in ["lcp1","lcp2","lcp3"]:#,"pve","bp","bc","lcq1","lcq2","lcq3", "epq1","epq2","epq3","ecq1","ecq2","ecq3","ipq1","ipq2","ipq3","icq1","icq2","icq3",   
         
         if (day_vals[avg_name] != None and previous_day_vals[avg_name] != None):
             # energy conunter values are in mJ, convert them to kWh
