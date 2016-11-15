@@ -83,15 +83,14 @@ def mdb_insert_power_aggregates(power_aggregate_list):
 
 ## NEW METHODS
 def mdb_get_energy_counter_data_new(input):
-    starttime_as_utc = cest_as_utc(round_down_datetime(input["starttime"])) - timedelta(days=1) + timedelta(milliseconds=timezone_offset_ms) 
-    endtime_as_utc =  cest_as_utc(round_up_datetime(input["endtime"])) + timedelta(milliseconds=timezone_offset_ms) 
-    #print(starttime_as_utc)
+    starttime_as_utc = cest_as_utc(round_down_datetime(input["starttime"])) - timedelta(days=1)
+    endtime_as_utc =  cest_as_utc(round_up_datetime(input["endtime"]))
     
     delta = endtime_as_utc - starttime_as_utc
     number_of_days = delta.days + 1
 
-    a = endtime_as_utc  - timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1) 
-    b = starttime_as_utc   - timedelta(milliseconds=timezone_offset_ms) #- timedelta(seconds=1)
+    a = endtime_as_utc 
+    b = starttime_as_utc 
 
     index = 0
     index2 = 0
@@ -102,23 +101,14 @@ def mdb_get_energy_counter_data_new(input):
 
     while a > b:
         toDate = b + timedelta(days=1)
-        
-        # check which in which order to put in array;
         index2 = index2 + 1
-        #toDateDb = toDate - timedelta(seconds=1)
-        
         test = mdb_cursorEnergyBars(index, input["energyhubid"], b, toDate)#(toDate - timedelta(seconds=1))
         
         if(len(test.res) > 0):
-            #resultat.append(test.res[0])
             resultat.insert(test.index, test.res[0])
-            #print(test.index)
-            #resultat[test.index] = test.res[0]
             if index2 == (number_of_days): 
-                #print("break it!")
                 break
             else:
-                #callback(null, resultat)
                 index = index + 1;
                 b = toDate
         else: 
@@ -140,13 +130,7 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
     periodvalues = {}
     aggr_res = []
     
-    #print(last_list[0]["ts"])
     print(len(base_load_values))
-    #print(last_list[1]["ts"])
-
-    #previous_day_vals = last_list[0]
-    #day_vals = last_list[1]
-    #map_args.append(get_energy_counter_averages_new(previous_day_vals, day_vals)); 
 
     for index in range(len(last_list) - 1):
         previous_day_ts = last_list[index]["ts"]
@@ -160,17 +144,8 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
         ## Base vals
         previous_day_base = next(filter(lambda x: x["starttime"]==previous_day_adjusted_ts, base_load_values), None)
         day_base = next(filter(lambda x: x["starttime"]==day_adjusted_ts, base_load_values), None)
-        print(previous_day_base)
-        print("-------")
-        print(day_base)
         aggr_res.append(get_energy_counter_averages_new(previous_day_vals, day_vals, day_base)); 
 
-    #print("In get_energy_counter_aggregate_new")
-    ##for last in last_list:
-        ##map_args.append({"avg":last, "base":base_load_values})
-        ##print(map_args)
-
-    #return map(get_energy_counter_averages_new, map_args)
     return aggr_res
 
 def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
@@ -210,6 +185,7 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
     # Base power may be fetched from DB elsewhere but we set them up here for now
     # The timestamps in base_loads should be rounded starttimes for the selected time span, in EHUB time (CEST)
     # print(aggregate_values_and_base_loads["base"])
+
     #base_loads = None #next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
     if day_base != None:  
         print("aggr-base start",adjusted_ts,"-",day_base["starttime"])
