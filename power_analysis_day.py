@@ -97,7 +97,7 @@ def mdb_get_energy_counter_data_new(input):
 
     resultat = []
 
-    print("From: " + (b + timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S") + " To:" + a.strftime("%Y-%m-%d %H:%M:%S"))
+    #print("From: " + (b + timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S") + " To:" + a.strftime("%Y-%m-%d %H:%M:%S"))
 
     while a > b:
         toDate = b + timedelta(days=1)
@@ -115,11 +115,11 @@ def mdb_get_energy_counter_data_new(input):
             print("No data was found")
             break
         
-    print(number_of_days)
+    #print(number_of_days)
     return resultat
 
 def mdb_cursorEnergyBars(index, id, fromd, tooo):
-    print("Get data from: " + fromd.strftime("%Y-%m-%d %H:%M:%S")  + " to: " + tooo.strftime("%Y-%m-%d %H:%M:%S") )
+    #print("Get data from: " + fromd.strftime("%Y-%m-%d %H:%M:%S")  + " to: " + tooo.strftime("%Y-%m-%d %H:%M:%S") )
     res = list(db.energydata.find({"id": id, "ts":{"$gte": fromd, "$lte": tooo}}).sort([("ts", -1)]).limit(1))
     ro = result_object(index, res)
     return ro
@@ -130,7 +130,7 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
     periodvalues = {}
     aggr_res = []
     
-    print(len(base_load_values))
+    #print(len(base_load_values))
 
     for index in range(len(last_list) - 1):
         previous_day_ts = last_list[index]["ts"]
@@ -146,7 +146,7 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
         day_base = next(filter(lambda x: x["starttime"]==day_adjusted_ts, base_load_values), None)
         aggr_res.append(get_energy_counter_averages_new(previous_day_vals, day_vals, day_base)); 
 
-    
+
     final_re = reversed(aggr_res)
     return final_re
 
@@ -190,7 +190,7 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
 
     #base_loads = None #next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
     if day_base != None:  
-        print("aggr-base start",adjusted_ts,"-",day_base["starttime"])
+        #print("aggr-base start",adjusted_ts,"-",day_base["starttime"])
         data_day["abp"]=day_base["abp"]
         data_day["abpL1"]=day_base["abpL1"]
         data_day["abpL2"]=day_base["abpL2"]
