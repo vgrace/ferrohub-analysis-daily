@@ -169,7 +169,8 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
     print("----")
     for avg_name in ['epq1','epq2','epq3','ecq1','ecq2','ecq3','ipq1','ipq2','ipq3','icq1','icq2','icq3','lcp1','lcp2','lcp3','lcq1','lcq2','lcq3']:#,'pve','bp','bc'
         print(avg_name)
-        if (day_vals[avg_name] != None and previous_day_vals[avg_name] != None):
+        
+        if ((avg_name in previous_day_vals.keys()) and previous_day_vals[avg_name] != None and (avg_name in day_vals.keys()) and day_vals[avg_name] != None):
             # energy conunter values are in mJ, convert them to kWh
             day_value = unsigned64int_from_words(day_vals[avg_name][0], day_vals[avg_name][1], not(day_vals[avg_name][2])) / 3600000000
             prev_day_value = unsigned64int_from_words(previous_day_vals[avg_name][0], previous_day_vals[avg_name][1], not(previous_day_vals[avg_name][2])) / 3600000000
