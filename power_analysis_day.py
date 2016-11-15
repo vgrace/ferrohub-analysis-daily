@@ -352,6 +352,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
             energy_counter_data[avg_name]=(last_value_64-first_value_64)/24
         else:
             energy_counter_data[avg_name]=0
+        print(adjusted_ts," ",avg_name," ",first_value," ", last_value, " ", energy_counter_data[avg_name])
     # Set up return values (in kW)
     periodvalues["aipL1"]=energy_counter_data["lcp1"]
     periodvalues["aipL2"]=energy_counter_data["lcp2"]
