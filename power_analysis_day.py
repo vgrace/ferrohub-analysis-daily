@@ -146,7 +146,9 @@ def get_energy_counter_aggregate_new(last_list, base_load_values):
         day_base = next(filter(lambda x: x["starttime"]==day_adjusted_ts, base_load_values), None)
         aggr_res.append(get_energy_counter_averages_new(previous_day_vals, day_vals, day_base)); 
 
-    return aggr_res
+    
+    final_re = reversed(aggr_res)
+    return final_re
 
 def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
 
