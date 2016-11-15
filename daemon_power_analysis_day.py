@@ -22,7 +22,7 @@ while True:
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
             print(job_input)
             # Get energy counter datafrom measurement DB
-            aggr_data = pad.mdb_get_energy_counter_data_new(job) #pad.mdb_get_energy_counter_data_grouped(job_input)
+            aggr_data = pad.mdb_get_energy_counter_data_new(job_input) #pad.mdb_get_energy_counter_data_grouped(job_input)
             # Fetch the base load values
             base_values = base.get_base_load_values(job_input)
             # Calculate the averages
