@@ -201,7 +201,7 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
         data_day["rbpL2"]=day_base["rbpL2"]
         data_day["rbpL3"]=day_base["rbpL3"]
     else:
-        print("aggr-base start",adjusted_ts,"- NO BASE LOAD")
+        #print("aggr-base start",adjusted_ts,"- NO BASE LOAD")
         data_day["abp"]=None
         data_day["abpL1"]=None
         data_day["abpL2"]=None

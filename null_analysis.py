@@ -25,8 +25,9 @@ result_object = collections.namedtuple('Result', ['index', 'res'])
 
 # POWERANALYSISDAILY_JOBS -> nullanalysis_jobs
 def mdb_get_cursor():
-    #cur = local_db["nullanalysis_jobs"].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
-    cur = local_db["nullanalysis_jobs"].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE, no_cursor_timeout=True)
+    cur = local_db["nullanalysis_jobs"].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
+    cur.max_await_time_ms(5000)
+    #cur = local_db["nullanalysis_jobs"].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE, no_cursor_timeout=True)
     #cur = cur.hint([('$natural', 1)]) # ensure we don't use any indexes
     return cur
 

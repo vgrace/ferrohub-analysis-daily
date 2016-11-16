@@ -26,7 +26,7 @@ while True:
             jobstart = timer()
             # New job found
             resultsid = job_input["resultsid"]
-            debug_print(is_debug, use_file, ("DAILY Found job ",resultsid))
+            debug_print(is_debug, use_file, ("\nDAILY Found job ",resultsid))
             job_input["starttime"]=du.round_down_datetime(job_input["starttime"])
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
             debug_print(is_debug, use_file, job_input)
@@ -56,7 +56,7 @@ while True:
             # Mark the job done
             pad.mdb_mark_job_done(job_input)
             jobend = timer()
-            debug_print(is_debug, use_file, ("DAILY Job ",resultsid," \nTotal: ", jobend - jobstart, "\nec data fetch: ",timer_counter_data - jobstart, "\base load data fetch: ",timer_base_values - timer_counter_data, "\aggregate: ", timer_aggregate - timer_base_values))
+            debug_print(is_debug, use_file, ("\nDAILY Job ",resultsid," \nTotal: ", jobend - jobstart, "\nec data fetch: ",timer_counter_data - jobstart, "\base load data fetch: ",timer_base_values - timer_counter_data, "\aggregate: ", timer_aggregate - timer_base_values))
         except StopIteration:
             print("Out")
             time.sleep(1)
