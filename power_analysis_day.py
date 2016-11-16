@@ -48,7 +48,7 @@ def mdb_insert_poweranalysisday_job(jobdata):
     local_db[analysis_config.POWERANALYSISDAILY_JOBS].insert(jobdata)
 
 def mdb_mark_job_done(jobdata):
-    print(jobdata["resultsid"])
+    #print(jobdata["resultsid"])
     local_db[analysis_config.POWERANALYSISDAILY_JOBS].find_and_modify(query={'resultsid':jobdata["resultsid"]}, update={"$set": {'jobstatus': 1}}, upsert=False, full_response= False)
 
 def mdb_insert_poweranalysisday_result(resultdata):
@@ -164,7 +164,7 @@ def get_energy_counter_averages_new(previous_day_vals, day_vals, day_base):
     data_day["ts"] = adjusted_ts.timestamp()
     
     for avg_name in ['epq1','epq2','epq3','ecq1','ecq2','ecq3','ipq1','ipq2','ipq3','icq1','icq2','icq3','lcp1','lcp2','lcp3','lcq1','lcq2','lcq3']:#,'pve','bp','bc'
-        print(avg_name)
+        #print(avg_name)
         
         if ((avg_name in previous_day_vals.keys()) and previous_day_vals[avg_name] != None and (avg_name in day_vals.keys()) and day_vals[avg_name] != None):
             # energy conunter values are in mJ, convert them to kWh
@@ -331,7 +331,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
             energy_counter_data[avg_name]=(last_value_64-first_value_64)/24
         else:
             energy_counter_data[avg_name]=0
-        print(adjusted_ts," ",avg_name," ",first_value," ", last_value, " ", energy_counter_data[avg_name])
+        #print(adjusted_ts," ",avg_name," ",first_value," ", last_value, " ", energy_counter_data[avg_name])
     # Set up return values (in kW)
     periodvalues["aipL1"]=energy_counter_data["lcp1"]
     periodvalues["aipL2"]=energy_counter_data["lcp2"]
@@ -348,7 +348,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
     base_loads = next(filter(lambda x: x["starttime"]==adjusted_ts, aggregate_values_and_base_loads["base"]), None)
 
     if base_loads != None:  
-        print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
+        #print("aggr-base start",adjusted_ts,"-",base_loads["starttime"])
         periodvalues["abp"]=base_loads["abp"]
         periodvalues["abpL1"]=base_loads["abpL1"]
         periodvalues["abpL2"]=base_loads["abpL2"]
@@ -358,7 +358,7 @@ def get_energy_counter_averages(aggregate_values_and_base_loads):
         periodvalues["rbpL2"]=base_loads["rbpL2"]
         periodvalues["rbpL3"]=base_loads["rbpL3"]
     else:
-        print("aggr-base start",adjusted_ts,"- NO BASE LOAD")
+        #print("aggr-base start",adjusted_ts,"- NO BASE LOAD")
         periodvalues["abp"]=None
         periodvalues["abpL1"]=None
         periodvalues["abpL2"]=None

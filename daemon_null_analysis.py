@@ -9,6 +9,13 @@ import re, time
 import datetime_utilities
 du = datetime_utilities
 
+import timeit
+from timeit import default_timer as timer
+
+from debug_utilities import *
+is_debug = True
+use_file = True
+
 pad = null_analysis #power_analysis_day
 #base = base_load
 
@@ -17,11 +24,13 @@ while True:
     while cursor.alive:
         try:
             job_input = cursor.next()
+           jobstart = timer()
             # New job found
-            print("Found")
+            resultsid = job_input["resultsid"]
+            debug_print(is_debug, use_file, ("NULL Found job ",resultsid))
             job_input["starttime"]=du.round_down_datetime(job_input["starttime"])
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
-            print(job_input)
+            debug_print(job_input)
             # Get energy counter datafrom measurement DB
             aggr_data = pad.mdb_get_energy_counter_data_new(job_input) # Returns timestamp
             # Fetch the base load values
@@ -43,6 +52,8 @@ while True:
             pad.mdb_insert_poweranalysisday_jobs_results(job_results)
             # Mark the job done
             pad.mdb_mark_job_done(job_input)
+            jobend = timer()
+            debug_print(is_debug, use_file, ("NULL Job ",resultsid," ", jobend - jobstart))
         except StopIteration:
             print("Out")
-            time.sleep(2)
+            time.sleep(1)

@@ -33,9 +33,9 @@ def mdb_get_last_inserted():
         "id": {"$last":"$id"},
         "last_starttime": {"$last":"$starttime"}
         }}]))
-    print("res",res)
+    #print("res",res)
     all_ids = db[analysis_config.ENERGY_COUNTER].distinct("id")
-    print("all_ids",all_ids)
+    #print("all_ids",all_ids)
     start=datetime.now() - timedelta(days=30)
     for device_id in all_ids:
         if len([x for x in res if x["id"]==device_id])==0: 

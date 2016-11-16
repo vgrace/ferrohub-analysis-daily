@@ -140,9 +140,9 @@ def base_val(xIn, preFilt, precision):
         rbpL2 == Reactive 1P Base AQ(reactive)L2N(neutral)Load [VAr]
         rbpL3 == Reactive 1P Base AQ(reactive)L3N(neutral)Load [VAr]
     """ 
-    print("#base_val(xIn,",preFilt,",",precision,")")
-    print("xIn.shape=",xIn.shape)
-    print("xIn=",xIn)
+    #print("#base_val(xIn,",preFilt,",",precision,")")
+    #print("xIn.shape=",xIn.shape)
+    #print("xIn=",xIn)
     # xOut = zeros(1, size(xIn,2)); 
     xOut = zeros((xIn.shape[1]))
     
@@ -153,7 +153,7 @@ def base_val(xIn, preFilt, precision):
   
     if xIn.shape[0]<=preFilt:
         xOut = nanmin(xIn, 0)
-        print("size(xIn.shape[0])<=preFilt: xOut=", xOut)
+        #print("size(xIn.shape[0])<=preFilt: xOut=", xOut)
         return xOut
     #print("xOut=",xOut)
     # xFilt = filter(1/preFilt*ones(1,preFilt), 1, abs(xIn)); % abs(x) mapped to xIn
@@ -227,7 +227,7 @@ def base_val(xIn, preFilt, precision):
     #        xOut(i) = sign(mean(xIn(:,i)))*xOut(i);
     
         xOut[i] = sign(mean(xIn[:,i]))*xOut[i]      
-    print("xOut=",xOut)     
+    #print("xOut=",xOut)     
     return xOut
 
 def transform_raw_data():
@@ -341,7 +341,7 @@ def run_base_load():
                 energy_counters=list(mdb_base_load.mdb_get_base_load_energy_counter_data(device["id"], calc_date, round_up_datetime(calc_date)))
                 if len(energy_counters)>0:
                     date_data = transform_energy_counter(energy_counters)
-                    print("start date_data",datetime.fromtimestamp(date_data[0][0]), "-",datetime.fromtimestamp(date_data[-2][0]))
+                    #print("start date_data",datetime.fromtimestamp(date_data[0][0]), "-",datetime.fromtimestamp(date_data[-2][0]))
                     # No sanity check for sufficient values here, put this in base_val
                     #parameters = cdb_base_load.get_base_load_config(device["id"])
                     #date_base_load = base_val(date_data[:-1,1:9], parameters[2], parameters[3])
