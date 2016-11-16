@@ -26,10 +26,10 @@ while True:
             jobstart = timer()
             # New job found
             resultsid = job_input["resultsid"]
-            debug_print(is_debug, use_file, ("\nDAILY Found job ",resultsid))
+            debug_print(is_debug, use_file, ("\nDAILY Found job ",resultsid,"\n"))
             job_input["starttime"]=du.round_down_datetime(job_input["starttime"])
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
-            debug_print(is_debug, use_file, job_input)
+            debug_print(is_debug, use_file, str(job_input))
             # Get energy counter datafrom measurement DB
             aggr_data = pad.mdb_get_energy_counter_data_new(job_input) # pad.mdb_get_energy_counter_data_grouped(job_input)
             timer_counter_data = timer()
@@ -56,7 +56,7 @@ while True:
             # Mark the job done
             pad.mdb_mark_job_done(job_input)
             jobend = timer()
-            debug_print(is_debug, use_file, ("\nDAILY Job ",resultsid," \nTotal: ", jobend - jobstart, "\nec data fetch: ",timer_counter_data - jobstart, "\base load data fetch: ",timer_base_values - timer_counter_data, "\aggregate: ", timer_aggregate - timer_base_values))
+            debug_print(is_debug, use_file, ("\nDAILY Job ",resultsid," \nTotal: ", jobend - jobstart, "\nec data fetch: ",timer_counter_data - jobstart, "\nbase load data fetch: ",timer_base_values - timer_counter_data, "\naggregate: ", timer_aggregate - timer_base_values, "\nsignal result: ", jobend - timer_aggregate,"\n"))
         except StopIteration:
             print("Out")
             time.sleep(1)

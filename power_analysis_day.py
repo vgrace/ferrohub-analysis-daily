@@ -57,6 +57,7 @@ def mdb_insert_poweranalysisday_result(resultdata):
 
 def mdb_get_cursor():
     cur = local_db[analysis_config.POWERANALYSISDAILY_JOBS].find(filter={'jobstatus' : {"$eq":0}},cursor_type=CursorType.TAILABLE_AWAIT)
+    cur.max_await_time_ms(60000)
     #cur = cur.hint([('$natural', 1)]) # ensure we don't use any indexes
     return cur
 
