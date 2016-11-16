@@ -11,12 +11,16 @@ import timeit
 from timeit import default_timer as timer
 
 
+from debug_utilities import *
+is_debug = True
+use_file = True
+
 
 base = base_load
 pad = power_analysis_day
 
 def main():
- 
+    jobstart = timer()
     start_date = datetime.now() - timedelta(days=30)
     input = {
     "energyhubid": "78:a5:04:ff:40:bb", #  fe-ace-28 Örebrobostäder Granrisvägen     78:a5:04:ff:40:bb
@@ -46,6 +50,8 @@ def main():
     print("\get_energy_counter_aggregate(aggr_data, base_values)\n")
     print(list(hub_aggr))
     input["data"]=list(hub_aggr)
+    jobend = timer()
+    debug_print(is_debug, use_file, ("Job ","SYNC_POWER_ANALYSIS_DAILY"," ", jobend - jobstart))
     #print(input)
     # Store the result in the local analysis database
     #pad.mdb_insert_poweranalysisday_result(input)
