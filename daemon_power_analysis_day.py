@@ -4,23 +4,32 @@ import base_load
 import json
 import re, time
 import pymongo
+import timeit
+from timeit import default_timer as timer
 
 import datetime_utilities
 du = datetime_utilities
 
+from debug_utilities import *
+
 pad = power_analysis_day
 base = base_load
+
+is_debug = True
+use_file = True
 
 while True:
     cursor = pad.mdb_get_cursor()
     while cursor.alive:
         try:
             job_input = cursor.next()
+            jobstart = timer()
             # New job found
-            print("Found")
+            resultsid = job_input["resultsid"]
+            debug_print(is_debug, use_file, ("Found job ",resultsid))
             job_input["starttime"]=du.round_down_datetime(job_input["starttime"])
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
-            print(job_input)
+            debug_print(is_debug, use_file, job_input)
             # Get energy counter datafrom measurement DB
             aggr_data = pad.mdb_get_energy_counter_data_new(job_input) # pad.mdb_get_energy_counter_data_grouped(job_input)
             # Fetch the base load values
@@ -42,6 +51,8 @@ while True:
             pad.mdb_insert_poweranalysisday_jobs_results(job_results)
             # Mark the job done
             pad.mdb_mark_job_done(job_input)
+            jobend = timer()
+            debug_print(is_debug, use_file, ("Job ",resultsid," ", jobend - jobstart))
         except StopIteration:
             print("Out")
-            time.sleep(2)
+            time.sleep(1)
