@@ -30,7 +30,7 @@ while True:
             debug_print(is_debug, use_file, ("NULL Found job ",resultsid))
             job_input["starttime"]=du.round_down_datetime(job_input["starttime"])
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
-            debug_print(job_input)
+            debug_print(is_debug, use_file,job_input)
             # Get energy counter datafrom measurement DB
             aggr_data = pad.mdb_get_energy_counter_data_new(job_input) # Returns timestamp
             # Fetch the base load values
