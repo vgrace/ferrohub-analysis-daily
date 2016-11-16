@@ -24,7 +24,7 @@ while True:
     while cursor.alive:
         try:
             job_input = cursor.next()
-           jobstart = timer()
+            jobstart = timer()
             # New job found
             resultsid = job_input["resultsid"]
             debug_print(is_debug, use_file, ("NULL Found job ",resultsid))
