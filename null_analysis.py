@@ -73,9 +73,10 @@ def mdb_mark_job_done(jobdata):
 
 ## ANALYSIS ##
 def mdb_get_energy_counter_data_new(input):
-    resultat = []
-    ts = datetime.now()
-    resultat.insert(0, ts)
+    resultat = {} #[]
+    resultat["ts"] = datetime.now().timestamp()
+    #ts = datetime.now()
+    #resultat.insert(0, ts)
     
     return resultat
 
