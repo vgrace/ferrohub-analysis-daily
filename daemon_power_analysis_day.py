@@ -26,19 +26,23 @@ while True:
             jobstart = timer()
             # New job found
             resultsid = job_input["resultsid"]
-            debug_print(is_debug, use_file, ("Found job ",resultsid))
+            debug_print(is_debug, use_file, ("DAILY Found job ",resultsid))
             job_input["starttime"]=du.round_down_datetime(job_input["starttime"])
             job_input["endtime"]=du.round_up_datetime(job_input["endtime"])
             debug_print(is_debug, use_file, job_input)
             # Get energy counter datafrom measurement DB
             aggr_data = pad.mdb_get_energy_counter_data_new(job_input) # pad.mdb_get_energy_counter_data_grouped(job_input)
+            timer_counter_data = timer()
             # Fetch the base load values
             base_values = base.get_base_load_values(job_input)
+            timer_base_values= timer()
             # Calculate the averages
             hub_aggr = pad.get_energy_counter_aggregate_new(aggr_data, base_values) # pad.get_energy_counter_aggregate(aggr_data, base_values)
+            timer_aggregate= timer()
             job_input["data"]=list(hub_aggr)
             # Store the result in the local analysis database
             pad.mdb_insert_poweranalysisday_result(job_input)
+            timer_aggregate= timer()
             job_results = {
                 "energyhubid": job_input["energyhubid"],
                 "starttime": job_input["starttime"] ,
@@ -52,7 +56,7 @@ while True:
             # Mark the job done
             pad.mdb_mark_job_done(job_input)
             jobend = timer()
-            debug_print(is_debug, use_file, ("Job ",resultsid," ", jobend - jobstart))
+            debug_print(is_debug, use_file, ("DAILY Job ",resultsid," \nTotal: ", jobend - jobstart, "\nec data fetch: ",timer_counter_data - jobstart, "\base load data fetch: ",timer_base_values - timer_counter_data, "\aggregate: ", timer_aggregate - timer_base_values))
         except StopIteration:
             print("Out")
             time.sleep(1)
